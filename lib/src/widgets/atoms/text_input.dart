@@ -12,6 +12,7 @@ class TextInput extends StatefulWidget {
   final int? maxLength;
   final bool? showCounter;
   final bool obscureText;
+  final TextStyle? style;
   final FormFieldValidator<String>? validator;
 
   const TextInput({
@@ -25,6 +26,7 @@ class TextInput extends StatefulWidget {
     this.showCounter,
     this.validator,
     this.obscureText = false,
+    this.style,
   }) : super(key: key);
 
   @override
@@ -68,6 +70,7 @@ class _TextInputState extends State<TextInput> {
         FormBuilderTextField(
           key: widget.key,
           name: widget.name,
+          style: widget.style ?? Theme.of(context).textTheme.subtitle2,
           obscureText: _secureText,
           onChanged: widget.onChanged,
           validator: widget.validator,
