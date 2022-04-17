@@ -1,29 +1,13 @@
-import 'package:json_annotation/json_annotation.dart';
-
 import '../index.dart';
 
-part 'user.g.dart';
-
-@JsonSerializable()
 class User extends Indexable {
-  final int id;
-  @JsonKey(name: "is_phone_verified")
-  final bool isPhoneVerified;
-  final String email;
-  @JsonKey(name: "full_name")
-  final String fullName;
-  final String gender;
-  final String phone;
-  final String age;
-  @JsonKey(name: "updated_at")
-  final String updatedAt;
-  @JsonKey(name: "created_at")
-  final String createdAt;
-
   User({
     required this.id,
+    required this.firebaseUid,
+    required this.nickName,
     required this.email,
     required this.fullName,
+    required this.residentStatus,
     required this.gender,
     required this.phone,
     required this.age,
@@ -32,8 +16,47 @@ class User extends Indexable {
     required this.createdAt,
   }) : super(id);
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  int id;
+  String firebaseUid;
+  String nickName;
+  String email;
+  String fullName;
+  String residentStatus;
+  String gender;
+  String phone;
+  String age;
+  bool isPhoneVerified;
+  String updatedAt;
+  String createdAt;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json['id'] as int,
+        firebaseUid: json['firebase_uid'] as String,
+        nickName: json['nick_name'] as String,
+        email: json['email'] as String,
+        fullName: json['full_name'] as String,
+        residentStatus: json['resident_status'] as String,
+        gender: json['gender'] as String,
+        phone: json['phone'] as String,
+        age: json['age'] as String,
+        isPhoneVerified: json['is_phone_verified'] as bool,
+        updatedAt: json['updated_at'] as String,
+        createdAt: json['created_at'] as String,
+      );
 
   @override
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "firebase_uid": firebaseUid,
+        "nick_name": nickName,
+        "email": email,
+        "full_name": fullName,
+        "resident_status": residentStatus,
+        "gender": gender,
+        "phone": phone,
+        "age": age,
+        "is_phone_verified": isPhoneVerified,
+        "updated_at": updatedAt,
+        "created_at": createdAt,
+      };
 }

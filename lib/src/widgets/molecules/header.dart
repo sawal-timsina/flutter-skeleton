@@ -25,9 +25,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
               label: tr("Logout"),
               textStyle: Theme.of(context).textTheme.subtitle1,
               disableBorder: true,
-              onPressed: () {
-
-              },
+              onPressed: () {},
             );
           },
         ),
