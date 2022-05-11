@@ -10,6 +10,8 @@ import 'config/themes/app_theme.dart';
 import 'providers/auth_provider.dart';
 import 'providers/onboarding_provider.dart';
 
+final mainNavigator = GlobalKey<NavigatorState>();
+
 class App extends StatelessWidget {
   static void dismissKeyboard() {
     FocusManager.instance.primaryFocus?.unfocus();
@@ -32,6 +34,7 @@ class App extends StatelessWidget {
         return Sizer(builder: (_, orientation, deviceType) {
           return MaterialApp(
             debugShowCheckedModeBanner: kDebugMode,
+            navigatorKey: mainNavigator,
             title: tr("Skeleton"),
             theme: AppTheme.light,
             initialRoute:
