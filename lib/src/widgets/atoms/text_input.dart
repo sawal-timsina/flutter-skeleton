@@ -1,4 +1,22 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        BoxConstraints,
+        BuildContext,
+        EdgeInsets,
+        FormFieldValidator,
+        Icon,
+        IconButton,
+        Icons,
+        InputDecoration,
+        Key,
+        State,
+        StatefulWidget,
+        TextAlignVertical,
+        TextInputType,
+        TextStyle,
+        Theme,
+        ValueChanged,
+        Widget;
 import 'package:flutter_form_builder/flutter_form_builder.dart'
     show FormBuilderTextField;
 
@@ -13,12 +31,20 @@ class TextInput extends StatefulWidget {
   final bool? required;
   final bool? enabled;
   final int? maxLength;
+  final int? maxLines;
   final bool? showCounter;
   final bool obscureText;
   final TextStyle? style;
+  final Widget? suffix;
+  final BoxConstraints? suffixIconConstraints;
+
+  final Widget? prefix;
+  final BoxConstraints? prefixIconConstraints;
+
   final TextStyle? labelStyle;
   final FormFieldValidator<String>? validator;
   final TextInputType? keyboardType;
+  final TextAlignVertical? textAlignVertical;
 
   const TextInput({
     Key? key,
@@ -28,6 +54,7 @@ class TextInput extends StatefulWidget {
     this.hintText,
     this.required,
     this.maxLength,
+    this.maxLines,
     this.showCounter,
     this.validator,
     this.obscureText = false,
@@ -35,6 +62,11 @@ class TextInput extends StatefulWidget {
     this.enabled = true,
     this.labelStyle,
     this.keyboardType,
+    this.suffix,
+    this.textAlignVertical,
+    this.suffixIconConstraints,
+    this.prefix,
+    this.prefixIconConstraints,
   }) : super(key: key);
 
   @override
@@ -61,6 +93,7 @@ class _TextInputState extends State<TextInput> {
       labelStyle: widget.labelStyle,
       child: FormBuilderTextField(
         key: widget.key,
+        textAlignVertical: widget.textAlignVertical,
         name: widget.name,
         keyboardType: widget.keyboardType,
         style: widget.style ?? Theme.of(context).textTheme.subtitle2,
@@ -68,11 +101,14 @@ class _TextInputState extends State<TextInput> {
         onChanged: widget.onChanged,
         validator: widget.validator,
         maxLength: widget.maxLength,
+        maxLines: widget.obscureText ? 1 : widget.maxLines,
         enabled: widget.enabled ?? true,
         decoration: InputDecoration(
           counterText: widget.showCounter == false ? "" : null,
           contentPadding: const EdgeInsets.all(16),
           hintText: widget.hintText,
+          prefixIcon: widget.prefix,
+          prefixIconConstraints: widget.prefixIconConstraints,
           suffixIcon: widget.obscureText == true
               ? IconButton(
                   onPressed: () {
@@ -87,7 +123,8 @@ class _TextInputState extends State<TextInput> {
                     color: AppColors.greyDark,
                   ),
                 )
-              : null,
+              : widget.suffix,
+          suffixIconConstraints: widget.suffixIconConstraints,
         ),
       ),
     );

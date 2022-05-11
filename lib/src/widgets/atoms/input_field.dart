@@ -1,4 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        Color,
+        Column,
+        CrossAxisAlignment,
+        Key,
+        SizedBox,
+        StatelessWidget,
+        Text,
+        TextStyle,
+        Theme,
+        Widget,
+        Wrap,
+        WrapCrossAlignment;
 
 import '../../config/themes/colors.dart';
 
@@ -31,12 +45,14 @@ class InputField extends StatelessWidget {
           children: [
             if (label != null)
               Text(label!,
-                  style: (labelStyle ?? Theme.of(context).textTheme.subtitle1)!.copyWith(
-                      color: enabled == false ? AppColors.greyDark : null)),
+                  style: (labelStyle ?? Theme.of(context).textTheme.subtitle1)!
+                      .copyWith(
+                          color: enabled == false ? AppColors.greyDark : null)),
             if (required == true)
               Text(
                 "*",
-                style: (labelStyle ?? Theme.of(context).textTheme.subtitle1)?.copyWith(
+                style: (labelStyle ?? Theme.of(context).textTheme.subtitle1)
+                    ?.copyWith(
                   color: enabled == false ? AppColors.greyDark : requiredColor,
                 ),
               )
