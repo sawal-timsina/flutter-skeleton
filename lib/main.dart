@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'src/app.dart';
-import 'src/config/config.dart';
+import 'config.dart';
 import 'src/injector.dart';
 
 void main() async {
@@ -16,7 +16,6 @@ void main() async {
     startLocale: const Locale(Config.locale),
     supportedLocales: const [
       Locale('en'),
-      Locale('ja'),
     ],
     child: const App(),
   ));

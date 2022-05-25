@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../api/interceptors.dart';
-import '../config.dart';
+import '../../../config.dart';
 
 late final Dio dio;
 

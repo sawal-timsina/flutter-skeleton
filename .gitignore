@@ -46,7 +46,7 @@ app.*.map.json
 /android/app/release
 
 #config
-/lib/src/config/config.dart
+/lib/config.dart
 /env/dev/config.dart
 /env/prod/config.dart
 /env/dev/google-services.json
