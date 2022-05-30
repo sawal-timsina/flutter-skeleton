@@ -10,7 +10,7 @@ GOOGLE_SERVICE_INFO=GoogleService-info.plist
 GOOGLE_SERVICE_IOS=$(IOS_DIR)/
 
 set-env-dev:
-	@cp -r env/dev/config.dart lib/src/config/
+	@cp -r env/dev/config.dart lib/
 	@cp -r env/dev/$(GOOGLE_SERVICE_JSON) $(GOOGLE_SERVICE_ANDROID)
 	@cp -r env/dev/$(GOOGLE_SERVICE_INFO) $(GOOGLE_SERVICE_IOS)
 
@@ -19,7 +19,7 @@ set-env-dev:
 	@echo "$(GREEN)Successfully copied project dev environment config$(NC)"
 
 set-env-prod:
-	@cp -r env/prod/config.dart lib/src/config/
+	@cp -r env/prod/config.dart lib/
 	@cp -r env/prod/$(GOOGLE_SERVICE_JSON) $(GOOGLE_SERVICE_ANDROID)
 	@cp -r env/prod/$(GOOGLE_SERVICE_INFO) $(GOOGLE_SERVICE_IOS)
 
