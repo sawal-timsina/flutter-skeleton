@@ -21,8 +21,8 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
             }
             return Button(
               type: ButtonType.transparent,
-              icon: const Icon(Icons.directions_bus, size: 24),
-              label: tr("Logout"),
+              child: Text(tr("Logout")),
+              trailingIcon: const Icon(Icons.directions_bus, size: 24),
               textStyle: Theme.of(context).textTheme.subtitle1,
               disableBorder: true,
               onPressed: () {},
