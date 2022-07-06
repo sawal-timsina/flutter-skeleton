@@ -16,8 +16,9 @@ enum ButtonSize {
 }
 
 class Button extends StatelessWidget {
-  final String label;
-  final Icon? icon;
+  final Widget child;
+  final Icon? leadingIcon;
+  final Icon? trailingIcon;
   final GestureTapCallback onPressed;
   final ButtonType? type;
   final ButtonSize? size;
@@ -25,18 +26,29 @@ class Button extends StatelessWidget {
   final bool disableBorder;
   final TextStyle? textStyle;
   final EdgeInsets? padding;
+  final Color? fillColor;
+  final Axis direction;
+  final BorderRadius? borderRadius;
+  final Color? splashColor;
+  final Color? highlightColor;
 
   Button({
     Key? key,
     required this.onPressed,
-    required this.label,
-    this.icon,
+    required this.child,
     this.type = ButtonType.filled,
     this.size = ButtonSize.large,
+    this.padding,
     this.disabled = false,
     this.textStyle,
-    this.padding,
+    this.leadingIcon,
+    this.trailingIcon,
     this.disableBorder = false,
+    this.fillColor,
+    this.direction = Axis.horizontal,
+    this.borderRadius,
+    this.splashColor,
+    this.highlightColor,
   }) : super(key: key);
 
   final Map<ButtonSize, double> sizeValue = {
@@ -56,47 +68,54 @@ class Button extends StatelessWidget {
       highlightElevation: 0,
       constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
       padding: EdgeInsets.symmetric(
-              vertical: sizeValue[size] ?? 0, horizontal: sizeValue[size] ?? 0)
+          vertical: sizeValue[size] ?? 0,
+          horizontal: (sizeValue[size] ?? 0) * 2)
           .merge(padding),
       textStyle: (size == ButtonSize.large
-              ? Theme.of(context).textTheme.button
-              : size == ButtonSize.medium
-                  ? Theme.of(context).textTheme.subtitle1
-                  : Theme.of(context).textTheme.bodyText1)
+          ? Theme.of(context).textTheme.button
+          : size == ButtonSize.medium
+          ? Theme.of(context).textTheme.subtitle2
+          : Theme.of(context).textTheme.bodyText2)
           ?.merge(textStyle)
           .merge(
-            TextStyle(
-              color: disabled!
-                  ? Colors.white
-                  : type == ButtonType.filled
-                      ? Colors.white
-                      : type == ButtonType.outlined
-                          ? Colors.green
-                          : Colors.black87,
-            ),
-          ),
-      splashColor: type == ButtonType.filled
-          ? Theme.of(context).primaryColorDark
-          : type == ButtonType.outlined
-              ? Theme.of(context).primaryColorLight
-              : null,
+        TextStyle(
+          color: disabled!
+              ? Colors.white
+              : type == ButtonType.filled
+              ? Colors.white
+              : Theme.of(context).primaryColor,
+        ),
+      ),
+      highlightColor: highlightColor,
+      splashColor: splashColor ??
+          (type == ButtonType.filled
+              ? Theme.of(context).primaryColorDark
+              : Theme.of(context).primaryColorLight),
       fillColor: disabled!
           ? AppColors.greyDark
           : type == ButtonType.filled
-              ? Theme.of(context).primaryColor
-              : null,
+          ? fillColor ?? Theme.of(context).primaryColor
+          : null,
       shape: RoundedRectangleBorder(
         side: disabled! || type != ButtonType.outlined
             ? BorderSide.none
-            : BorderSide(color: Theme.of(context).primaryColor, width: 1),
-        borderRadius: BorderRadius.all(
-            Radius.circular(disableBorder ? 0 : sizeValue[size] ?? 0)),
+            : BorderSide(color: Theme.of(context).primaryColor, width: 2),
+        borderRadius: borderRadius ??
+            BorderRadius.all(
+              Radius.circular(disableBorder ? 50 : 50),
+            ),
       ),
-      child: Row(
+      child: Flex(
         mainAxisSize: MainAxisSize.min,
+        direction: direction,
         children: <Widget>[
-          ...(icon != null ? [icon!, const SizedBox(width: 8)] : []),
-          Text(label),
+          ...(leadingIcon != null
+              ? [leadingIcon!, const SizedBox(width: 8)]
+              : []),
+          child,
+          ...(trailingIcon != null
+              ? [const SizedBox(width: 8), trailingIcon!]
+              : []),
         ],
       ),
     );
