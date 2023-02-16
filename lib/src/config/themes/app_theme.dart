@@ -93,6 +93,7 @@ class AppTheme {
       visualDensity: VisualDensity.adaptivePlatformDensity,
       // fontFamily: GoogleFonts.sourceSansPro().fontFamily,
       inputDecorationTheme: InputDecorationTheme(
+        fillColor: Colors.red,
         labelStyle: captionBold,
         floatingLabelStyle: captionBold,
         hintStyle: captionRegular.copyWith(color: AppColors.greyDark),
@@ -100,45 +101,47 @@ class AppTheme {
           color: AppColors.greyDark,
         ),
         errorStyle: subHeading.copyWith(color: Colors.red),
-        floatingLabelBehavior: FloatingLabelBehavior.always,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
         focusedErrorBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
           borderSide: BorderSide(color: Colors.red, width: 1),
         ),
         errorBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
           borderSide: BorderSide(color: Colors.red, width: 1),
         ),
         enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
           borderSide: BorderSide(color: AppColors.greyDark, width: 1),
         ),
         disabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
           borderSide: BorderSide(color: AppColors.greyDark, width: 1),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
           borderSide: BorderSide(color: AppColors.primary, width: 1),
         ),
       ),
       textTheme: TextTheme(
-        headline1: headline1,
-        headline2: headline2Bold,
-        headline3: heading2Regular,
-        subtitle1: captionBold,
-        subtitle2: captionRegular,
-        bodyText1: textBold,
-        bodyText2: textRegular,
-        caption: subHeading,
-        button: button,
+        displayLarge: headline1,
+        displayMedium: headline2Bold,
+        displaySmall: heading2Regular,
+        titleMedium: captionBold,
+        titleSmall: captionRegular,
+        bodyLarge: textBold,
+        bodyMedium: textRegular,
+        bodySmall: subHeading,
+        labelMedium: button,
       ),
-      appBarTheme: const AppBarTheme(
-        actionsIconTheme: IconThemeData(color: AppColors.black),
+      appBarTheme: AppBarTheme(
+        actionsIconTheme: const IconThemeData(color: AppColors.black),
         shadowColor: Colors.transparent,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: AppColors.black),
-        titleTextStyle: TextStyle(color: AppColors.black),
+        backgroundColor: AppColors.primary,
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: AppColors.black),
+        titleTextStyle:
+            captionRegular.copyWith(fontSize: 22, color: Colors.white),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
@@ -146,6 +149,41 @@ class AppTheme {
         backgroundColor: Colors.white,
         selectedLabelStyle: captionBold,
         unselectedLabelStyle: captionRegular,
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: ButtonStyle(
+          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          )),
+          padding: const MaterialStatePropertyAll(EdgeInsets.all(16)),
+          textStyle: MaterialStatePropertyAll(button),
+          elevation: const MaterialStatePropertyAll(0),
+          foregroundColor: const MaterialStatePropertyAll(AppColors.secondary),
+          backgroundColor: const MaterialStatePropertyAll(Colors.white),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          )),
+          padding: const MaterialStatePropertyAll(EdgeInsets.all(16)),
+          textStyle: MaterialStatePropertyAll(button),
+          elevation: const MaterialStatePropertyAll(0),
+          backgroundColor:
+              MaterialStateColor.resolveWith((states) => AppColors.secondary),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          )),
+          padding: const MaterialStatePropertyAll(EdgeInsets.all(16)),
+          textStyle: MaterialStatePropertyAll(button),
+          elevation: const MaterialStatePropertyAll(0),
+          foregroundColor: const MaterialStatePropertyAll(AppColors.secondary),
+        ),
       ),
     );
   }
