@@ -20,6 +20,7 @@ dependencies:
   flutter_form_builder: ^7.7.0
   form_builder_validators: ^8.4.0
   sizer: ^2.0.15
+  shared_preferences: ^2.0.17
 
 dev_dependencies:
   flutter_test:
