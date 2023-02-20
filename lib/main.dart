@@ -18,6 +18,5 @@ void main() async {
       Locale('en'),
     ],
     child: const App(),
-    asdasd
   ));
 }
