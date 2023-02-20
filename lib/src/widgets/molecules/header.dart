@@ -1,9 +1,21 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart' show tr;
+import 'package:flutter/material.dart'
+    show
+        AppBar,
+        BuildContext,
+        Icon,
+        Icons,
+        Key,
+        PreferredSizeWidget,
+        Size,
+        SizedBox,
+        StatelessWidget,
+        Text,
+        TextButton,
+        Widget;
+import 'package:provider/provider.dart' show Consumer;
 
 import '../../providers/auth_provider.dart';
-import '../atoms/button.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
   const Header({
@@ -19,13 +31,10 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
             if (!value.loggedIn) {
               return const SizedBox.shrink();
             }
-            return Button(
-              type: ButtonType.transparent,
-              child: Text(tr("Logout")),
-              trailingIcon: const Icon(Icons.directions_bus, size: 24),
-              textStyle: Theme.of(context).textTheme.subtitle1,
-              disableBorder: true,
+            return TextButton.icon(
+              icon: const Icon(Icons.directions_bus, size: 24),
               onPressed: () {},
+              label: Text(tr("Logout")),
             );
           },
         ),

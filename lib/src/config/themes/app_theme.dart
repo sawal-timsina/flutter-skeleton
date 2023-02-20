@@ -89,6 +89,21 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.light,
       primarySwatch: AppColors.primary,
+      primaryColorDark: AppColors.primary.shade700,
+      primaryColorLight: AppColors.primary.shade300,
+      colorScheme: const ColorScheme(
+        background: Colors.white,
+        brightness: Brightness.light,
+        primary: AppColors.primary,
+        onPrimary: Colors.white,
+        secondary: AppColors.secondary,
+        onSecondary: Colors.white,
+        error: AppColors.error,
+        onError: Colors.white,
+        onBackground: Colors.black87,
+        surface: Colors.white,
+        onSurface: Colors.grey,
+      ),
       scaffoldBackgroundColor: Colors.white,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       // fontFamily: GoogleFonts.sourceSansPro().fontFamily,
@@ -120,7 +135,7 @@ class AppTheme {
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(6)),
-          borderSide: BorderSide(color: AppColors.primary, width: 1),
+          borderSide: BorderSide(color: AppColors.secondary, width: 1),
         ),
       ),
       textTheme: TextTheme(
@@ -132,7 +147,7 @@ class AppTheme {
         bodyLarge: textBold,
         bodyMedium: textRegular,
         bodySmall: subHeading,
-        labelMedium: button,
+        labelLarge: button,
       ),
       appBarTheme: AppBarTheme(
         actionsIconTheme: const IconThemeData(color: AppColors.black),
@@ -151,38 +166,41 @@ class AppTheme {
         unselectedLabelStyle: captionRegular,
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: ButtonStyle(
-          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
-          )),
-          padding: const MaterialStatePropertyAll(EdgeInsets.all(16)),
-          textStyle: MaterialStatePropertyAll(button),
-          elevation: const MaterialStatePropertyAll(0),
-          foregroundColor: const MaterialStatePropertyAll(AppColors.secondary),
-          backgroundColor: const MaterialStatePropertyAll(Colors.white),
+          ),
+          padding: const EdgeInsets.all(16),
+          textStyle: button,
+          elevation: 0,
+          backgroundColor: Colors.white,
+          foregroundColor: AppColors.secondary,
+          disabledForegroundColor: AppColors.greyDark,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ButtonStyle(
-          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
-          )),
-          padding: const MaterialStatePropertyAll(EdgeInsets.all(16)),
-          textStyle: MaterialStatePropertyAll(button),
-          elevation: const MaterialStatePropertyAll(0),
-          backgroundColor:
-              MaterialStateColor.resolveWith((states) => AppColors.secondary),
+          ),
+          padding: const EdgeInsets.all(16),
+          textStyle: button,
+          elevation: 0,
+          backgroundColor: AppColors.secondary,
+          disabledBackgroundColor: AppColors.greyLight,
+          disabledForegroundColor: AppColors.greyDark,
         ),
       ),
       textButtonTheme: TextButtonThemeData(
-        style: ButtonStyle(
-          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
-          )),
-          padding: const MaterialStatePropertyAll(EdgeInsets.all(16)),
-          textStyle: MaterialStatePropertyAll(button),
-          elevation: const MaterialStatePropertyAll(0),
-          foregroundColor: const MaterialStatePropertyAll(AppColors.secondary),
+          ),
+          padding: const EdgeInsets.all(16),
+          textStyle: button,
+          elevation: 0,
+          foregroundColor: AppColors.secondary,
+          disabledForegroundColor: AppColors.greyDark,
         ),
       ),
     );

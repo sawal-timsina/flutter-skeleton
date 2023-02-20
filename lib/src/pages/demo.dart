@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../app.dart';
 import '../config/themes/colors.dart';
@@ -21,41 +23,78 @@ class Demo extends StatefulWidget {
 }
 
 class _DemoState extends State<Demo> {
+  final formKey = GlobalKey<FormBuilderState>();
+
+  onPressed() {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => App.dismissKeyboard(),
       child: Scaffold(
-        backgroundColor: Colors.grey,
         appBar: AppBar(
-          title: Text("asdasd"),
+          title: const Text("asdasd"),
         ),
-        body: Center(
-          child: Column(
-            children: [
-              Text(widget.title),
-              ElevatedButton(onPressed: () {}, child: Text("asd")),
-              TextButton(onPressed: () {}, child: Text("asd")),
-              OutlinedButton(
-                onPressed: () {},
-                child: Text("asdadadasd"),
-                style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                      side: const MaterialStatePropertyAll(
-                        BorderSide(
-                          width: 1.0,
-                          style: BorderStyle.solid,
-                          color: AppColors.secondary,
-                        ),
+        body: SingleChildScrollView(
+          child:  Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(widget.title),
+                const SizedBox(height: 8),
+                ElevatedButton(onPressed: onPressed, child: const Text("Click Me")),
+                const SizedBox(height: 8),
+                TextButton(onPressed: onPressed, child: const Text("Click Me")),
+                const SizedBox(height: 8),
+                OutlinedButton(
+                  onPressed: onPressed,
+                  style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
+                    side: const MaterialStatePropertyAll(
+                      BorderSide(
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                        color: AppColors.secondary,
                       ),
                     ),
-              ),
-              TextInput(
-                required: true,
-                name: "name",
-                label: "Password",
-                hintText: "Enter your password",
-              )
-            ],
+                  ),
+                  child: const Text("Click Me"),
+                ),
+                const SizedBox(height: 8),
+                FormBuilder(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      TextInput(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        required: true,
+                        name: "name",
+                        label: "Name",
+                        hintText: "Enter your name",
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(errorText: "Required")
+                        ]),
+                      ),
+                      const SizedBox(height: 8),
+                      TextInput(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        required: true,
+                        name: "password",
+                        label: "Password",
+                        hintText: "Enter your password",
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(errorText: "Required")
+                        ]),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

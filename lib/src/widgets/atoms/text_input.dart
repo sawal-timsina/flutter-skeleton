@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart'
     show
+        AutovalidateMode,
         BoxConstraints,
         BuildContext,
         Colors,
@@ -60,6 +61,7 @@ class TextInput extends StatefulWidget {
   final InputBorder? errorBorder;
   final InputBorder? focusedErrorBorder;
   final EdgeInsetsGeometry? contentPadding;
+  final AutovalidateMode autovalidateMode;
 
   const TextInput({
     Key? key,
@@ -92,6 +94,7 @@ class TextInput extends StatefulWidget {
     this.hintStyle,
     this.prefixIcon,
     this.contentPadding,
+    this.autovalidateMode = AutovalidateMode.disabled,
   }) : super(key: key);
 
   @override
@@ -118,6 +121,7 @@ class _TextInputState extends State<TextInput> {
       labelStyle: widget.labelStyle,
       child: FormBuilderTextField(
         key: widget.key,
+        autovalidateMode: widget.autovalidateMode,
         textAlignVertical: widget.textAlignVertical,
         name: widget.name,
         textAlign: widget.textAlign,
@@ -130,7 +134,8 @@ class _TextInputState extends State<TextInput> {
         maxLines: widget.obscureText ? 1 : widget.maxLines,
         enabled: widget.enabled,
         decoration: InputDecoration(
-          fillColor: Colors.red,
+          filled: true,
+          fillColor: Colors.white,
           border: widget.border,
           enabledBorder: widget.enabledBorder,
           disabledBorder: widget.disabledBorder,
