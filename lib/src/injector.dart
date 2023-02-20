@@ -9,8 +9,6 @@ Future<void> initializeDependencies() async {
   await EasyLocalization.ensureInitialized();
   EasyLocalization.logger.enableBuildModes = [];
 
-  // await Firebase.initializeApp();
-
   // init dio
   InitDio()();
 

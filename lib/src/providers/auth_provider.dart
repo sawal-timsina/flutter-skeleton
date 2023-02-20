@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 
-// import '../config/firebase/auth.dart';
 import '../models/user/user.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -9,19 +7,6 @@ class AuthProvider with ChangeNotifier {
 
   AuthProvider() : super() {
     _dbUser = null;
-    /*firebaseAuth.authStateChanges().listen((auth.User? user) {
-      if (user != null) {
-        _user = user;
-        _loggedIn = true;
-      } else {
-        _phoneVerified = false;
-        _phoneNumber = "";
-        _loggedIn = false;
-        _user = null;
-        _dbUser = null;
-      }
-      notifyListeners();
-    });*/
   }
 
   void setAuthUser(User user) async {
@@ -43,10 +28,6 @@ class AuthProvider with ChangeNotifier {
     _phoneVerified = phoneVerified;
     notifyListeners();
   }
-
-  auth.User? _user;
-
-  auth.User? get user => _user;
 
   String _phoneNumber = "";
 

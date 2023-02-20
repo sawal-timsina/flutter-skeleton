@@ -55,3 +55,4 @@ app.*.map.json
 /env/prod/GoogleService-Info.plist
 /android/app/google-services.json
 /ios/GoogleService-info.plist
+/ios/Podfile.lock
