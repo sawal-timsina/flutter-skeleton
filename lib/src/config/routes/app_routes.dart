@@ -1,40 +1,47 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_skeleton/src/pages/demo.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../core/utils/route_path.dart';
+import '../../pages/demo.dart';
+import '../../pages/not_found.dart';
+import '../../providers/auth_provider.dart';
 
 class AppRouter {
-  static Route<dynamic> onGenerateRoutes(
-      RouteSettings settings, bool isLoggedIn) {
-    if (!isLoggedIn) {
-      switch (settings.name) {
-        case 'login':
-          return _materialRoute(const Demo(title: "Login"));
-        case 'register':
-          return _materialRoute(const Demo(title: 'Register'));
+  late final AuthProvider authProvider;
+  GoRouter get router => _goRouter;
+  AppRouter(this.authProvider);
+
+  late final GoRouter _goRouter = GoRouter(
+    refreshListenable: authProvider,
+    initialLocation: AppPage.login.toPath,
+    routes: <GoRoute>[
+      GoRoute(
+        path: AppPage.onboarding.toPath,
+        name: AppPage.onboarding.toName,
+        builder: (context, state) => const Demo(title: "Onboarding"),
+      ),
+      GoRoute(
+        path: AppPage.home.toPath,
+        name: AppPage.home.toName,
+        builder: (context, state) => const Demo(title: "Home"),
+      ),
+      GoRoute(
+        path: AppPage.login.toPath,
+        name: AppPage.login.toName,
+        builder: (context, state) => const Demo(title: "Login"),
+      ),
+      GoRoute(
+        path: AppPage.register.toPath,
+        name: AppPage.register.toName,
+        builder: (context, state) => const Demo(title: "Register"),
+      ),
+    ],
+    errorBuilder: (context, state) => const NotFoundPage(),
+    redirect: (context, state) {
+      final isLoggedIn = authProvider.loggedIn;
+      if (isLoggedIn) {
+        return AppPage.home.toPath;
       }
-    }
-
-    if (isLoggedIn) {
-      switch (settings.name) {
-        case 'update_profile':
-          return _materialRoute(const Demo(title: 'Update Profile'));
-      }
-    }
-
-    switch (settings.name) {
-      case '/':
-        return _materialRoute(const Demo(title: "Home"));
-      case "onboarding":
-        return _materialRoute(const Demo(title: "Onboarding"));
-      case 'about':
-        final DemoScreenArguments args =
-            settings.arguments as DemoScreenArguments;
-        return _materialRoute(Demo(title: "About", args: args));
-      default:
-        throw const FormatException('Route not found');
-    }
-  }
-
-  static Route<dynamic> _materialRoute(Widget view) {
-    return MaterialPageRoute(builder: (_) => view);
-  }
+      return null;
+    },
+  );
 }

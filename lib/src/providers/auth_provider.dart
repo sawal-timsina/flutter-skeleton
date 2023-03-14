@@ -29,6 +29,11 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setUerLoggedIn(bool phoneVerified) {
+    _loggedIn = true;
+    notifyListeners();
+  }
+
   String _phoneNumber = "";
 
   String get phoneNumber => _phoneNumber;
