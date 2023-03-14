@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../app.dart';
 import '../config/themes/colors.dart';
+import '../core/utils/route_path.dart';
+import '../providers/auth_provider.dart';
 import '../widgets/atoms/text_input.dart';
 
 class DemoScreenArguments {
@@ -37,34 +41,14 @@ class _DemoState extends State<Demo> {
       onTap: () => App.dismissKeyboard(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("asdasd"),
+          title: Text(widget.title),
         ),
         body: SingleChildScrollView(
-          child:  Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(widget.title),
-                const SizedBox(height: 8),
-                ElevatedButton(onPressed: onPressed, child: const Text("Click Me")),
-                const SizedBox(height: 8),
-                TextButton(onPressed: onPressed, child: const Text("Click Me")),
-                const SizedBox(height: 8),
-                OutlinedButton(
-                  onPressed: onPressed,
-                  style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                    side: const MaterialStatePropertyAll(
-                      BorderSide(
-                        width: 1.0,
-                        style: BorderStyle.solid,
-                        color: AppColors.secondary,
-                      ),
-                    ),
-                  ),
-                  child: const Text("Click Me"),
-                ),
-                const SizedBox(height: 8),
                 FormBuilder(
                   key: formKey,
                   child: Column(
@@ -92,7 +76,49 @@ class _DemoState extends State<Demo> {
                       )
                     ],
                   ),
-                )
+                ),
+                const SizedBox(height: 18),
+                OutlinedButton(
+                  onPressed: () {
+                    context.read<AuthProvider>().setUerLoggedIn(true);
+                  },
+                  style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
+                        side: const MaterialStatePropertyAll(
+                          BorderSide(
+                            width: 1.0,
+                            style: BorderStyle.solid,
+                            color: AppColors.secondary,
+                          ),
+                        ),
+                      ),
+                  child: const Text("Login > redirect to home"),
+                ),
+                const SizedBox(height: 15),
+                ElevatedButton(
+                    onPressed: () {
+                      context.go(AppPage.onboarding.toPath);
+                    },
+                    child: const Text("Click me > Go method")),
+                const SizedBox(height: 15),
+                ElevatedButton(
+                    onPressed: () {
+                      context.goNamed(AppPage.onboarding.toName);
+                    },
+                    child: const Text("click me > Go named method")),
+                const SizedBox(height: 15),
+                const SizedBox(height: 15),
+                ElevatedButton(
+                    onPressed: () {
+                      context.push(AppPage.onboarding.toPath);
+                    },
+                    child: const Text("Click me > push method")),
+                const SizedBox(height: 15),
+                ElevatedButton(
+                    onPressed: () {
+                      context.pushNamed(AppPage.onboarding.toName);
+                    },
+                    child: const Text("Click me > Push named method")),
+                const SizedBox(height: 15),
               ],
             ),
           ),

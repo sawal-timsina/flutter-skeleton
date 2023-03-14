@@ -29,22 +29,15 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => AuthProvider(),
         ),
+        Provider<AppRouter>(create: (_) => AppRouter(_.read<AuthProvider>()))
       ],
       builder: (context, child) {
         return Sizer(builder: (_, orientation, deviceType) {
-          return MaterialApp(
+          return MaterialApp.router(
             debugShowCheckedModeBanner: kDebugMode,
-            navigatorKey: mainNavigator,
+            routerConfig: _.read<AppRouter>().router,
             title: tr("Skeleton"),
             theme: AppTheme.light,
-            initialRoute:
-                context.watch<OnboardingProvider>().shouldShowOnboardingPage
-                    ? "onboarding"
-                    : "/",
-            onGenerateRoute: (settings) {
-              return AppRouter.onGenerateRoutes(settings,
-                  Provider.of<AuthProvider>(context, listen: false).loggedIn);
-            },
             localizationsDelegates: [
               FormBuilderLocalizations.delegate,
               ...context.localizationDelegates
