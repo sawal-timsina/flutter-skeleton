@@ -27,8 +27,8 @@ bool _checkArray(List list) {
 
 extension Flatten on List {
   List flatten() {
-    final _shapeCheck = _checkArray(this);
-    if (!_shapeCheck) throw Exception('Uneven array dimension');
+    final shapeCheck = _checkArray(this);
+    if (!shapeCheck) throw Exception('Uneven array dimension');
     var result = [];
     for (var i = 0; i < length; i++) {
       for (var j = 0; j < this[i].length; j++) {
@@ -36,5 +36,28 @@ extension Flatten on List {
       }
     }
     return result;
+  }
+}
+
+extension HexColor on Color {
+  static Color fromHex(String hexColorString) {
+    hexColorString = hexColorString.replaceAll("#", "");
+    if (hexColorString.length == 6) {
+      hexColorString = "FF$hexColorString";
+    }
+    return Color(int.parse(hexColorString, radix: 16));
+  }
+}
+
+extension GlobalKeyExtension on GlobalKey {
+  Rect? get globalPaintBounds {
+    final renderObject = currentContext?.findRenderObject();
+    var translation = renderObject?.getTransformTo(null).getTranslation();
+    if (translation != null && renderObject?.paintBounds != null) {
+      return renderObject!.paintBounds
+          .shift(Offset(translation.x, translation.y));
+    } else {
+      return null;
+    }
   }
 }
