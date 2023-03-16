@@ -3,85 +3,48 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 class AppTheme {
-  static TextStyle headline1 = const TextStyle(
+  static const TextStyle _displayLarge = TextStyle(
     color: AppColors.black,
-    height: 48.0 / 36.0,
-    // line height calculated as is fontSize * height so, <expected-height>/<font-size>
-    fontSize: 36.0,
+    height: 40 / 25,
+    fontSize: 25.0,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.bold,
     leadingDistribution: TextLeadingDistribution.even,
   );
 
-  static TextStyle headline2Bold = const TextStyle(
+  static const TextStyle _displayMedium = TextStyle(
     color: AppColors.black,
-    height: 36.0 / 18.0,
-    fontSize: 18.0,
+    height: 34 / 23.0,
+    fontSize: 23.0,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.bold,
     leadingDistribution: TextLeadingDistribution.even,
   );
 
-  static TextStyle heading2Regular = const TextStyle(
+  static const TextStyle _bodyMedium = TextStyle(
     color: AppColors.black,
-    height: 36.0 / 18.0,
-    fontSize: 18.0,
-    fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.w600,
-    leadingDistribution: TextLeadingDistribution.even,
-  );
-
-  static TextStyle button = const TextStyle(
-    color: AppColors.black,
-    height: 26.0 / 18.0,
-    fontSize: 18.0,
-    fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.w600,
-    leadingDistribution: TextLeadingDistribution.even,
-  );
-
-  static TextStyle captionBold = const TextStyle(
-    color: AppColors.black,
-    height: 22.0 / 16.0,
-    fontSize: 16.0,
-    fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.bold,
-    leadingDistribution: TextLeadingDistribution.even,
-  );
-
-  static TextStyle captionRegular = const TextStyle(
-    color: AppColors.black,
-    height: 22.0 / 16.0,
-    fontSize: 16.0,
+    height: 30 / 19.0,
+    fontSize: 19.0,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.normal,
     leadingDistribution: TextLeadingDistribution.even,
   );
 
-  static TextStyle textBold = const TextStyle(
+  static const TextStyle _bodyLarge = TextStyle(
     color: AppColors.black,
-    height: 20.0 / 14.0,
-    fontSize: 14.0,
+    height: 34 / 19.0,
+    fontSize: 19.0,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.bold,
     leadingDistribution: TextLeadingDistribution.even,
   );
 
-  static TextStyle textRegular = const TextStyle(
+  static const TextStyle _labelLarge = TextStyle(
     color: AppColors.black,
-    height: 20.0 / 14.0,
-    fontSize: 14.0,
+    height: 20.0 / 19,
+    fontSize: 19.0,
     fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.normal,
-    leadingDistribution: TextLeadingDistribution.even,
-  );
-
-  static TextStyle subHeading = const TextStyle(
-    color: AppColors.black,
-    height: 20.0 / 12.0,
-    fontSize: 12.0,
-    fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w700,
     leadingDistribution: TextLeadingDistribution.even,
   );
 
@@ -106,16 +69,18 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: Colors.white,
       visualDensity: VisualDensity.adaptivePlatformDensity,
-      // fontFamily: GoogleFonts.sourceSansPro().fontFamily,
       inputDecorationTheme: InputDecorationTheme(
-        fillColor: Colors.red,
-        labelStyle: captionBold,
-        floatingLabelStyle: captionBold,
-        hintStyle: captionRegular.copyWith(color: AppColors.greyDark),
-        counterStyle: subHeading.copyWith(
+        fillColor: Colors.white,
+        labelStyle: _bodyLarge,
+        floatingLabelStyle: _bodyLarge,
+        hintStyle: _labelLarge.copyWith(
+          color: AppColors.greyDark,
+          fontWeight: FontWeight.w400,
+        ),
+        counterStyle: _bodyMedium.copyWith(
           color: AppColors.greyDark,
         ),
-        errorStyle: subHeading.copyWith(color: Colors.red),
+        errorStyle: _bodyMedium.copyWith(color: Colors.red),
         floatingLabelBehavior: FloatingLabelBehavior.never,
         focusedErrorBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -138,16 +103,12 @@ class AppTheme {
           borderSide: BorderSide(color: AppColors.secondary, width: 1),
         ),
       ),
-      textTheme: TextTheme(
-        displayLarge: headline1,
-        displayMedium: headline2Bold,
-        displaySmall: heading2Regular,
-        titleMedium: captionBold,
-        titleSmall: captionRegular,
-        bodyLarge: textBold,
-        bodyMedium: textRegular,
-        bodySmall: subHeading,
-        labelLarge: button,
+      textTheme: const TextTheme(
+        displayLarge: _displayLarge,
+        displayMedium: _displayMedium,
+        bodyLarge: _bodyLarge,
+        bodyMedium: _bodyMedium,
+        labelLarge: _labelLarge,
       ),
       appBarTheme: AppBarTheme(
         actionsIconTheme: const IconThemeData(color: AppColors.black),
@@ -155,15 +116,14 @@ class AppTheme {
         backgroundColor: AppColors.primary,
         centerTitle: true,
         iconTheme: const IconThemeData(color: AppColors.black),
-        titleTextStyle:
-            captionRegular.copyWith(fontSize: 22, color: Colors.white),
+        titleTextStyle: _labelLarge.copyWith(fontSize: 22, color: Colors.white),
       ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         elevation: 0,
         backgroundColor: Colors.white,
-        selectedLabelStyle: captionBold,
-        unselectedLabelStyle: captionRegular,
+        selectedLabelStyle: _bodyLarge,
+        unselectedLabelStyle: _bodyMedium,
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -171,7 +131,7 @@ class AppTheme {
             borderRadius: BorderRadius.circular(8),
           ),
           padding: const EdgeInsets.all(16),
-          textStyle: button,
+          textStyle: _labelLarge,
           elevation: 0,
           backgroundColor: Colors.white,
           foregroundColor: AppColors.secondary,
@@ -184,7 +144,7 @@ class AppTheme {
             borderRadius: BorderRadius.circular(8),
           ),
           padding: const EdgeInsets.all(16),
-          textStyle: button,
+          textStyle: _labelLarge,
           elevation: 0,
           backgroundColor: AppColors.secondary,
           disabledBackgroundColor: AppColors.greyLight,
@@ -197,7 +157,7 @@ class AppTheme {
             borderRadius: BorderRadius.circular(8),
           ),
           padding: const EdgeInsets.all(16),
-          textStyle: button,
+          textStyle: _labelLarge,
           elevation: 0,
           foregroundColor: AppColors.secondary,
           disabledForegroundColor: AppColors.greyDark,
