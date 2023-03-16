@@ -1,3 +1,7 @@
 {
-  "Hello": "こんにちは"
+  "Hello": "こんにちは",
+  "Enter your name": "氏名を入力ください",
+  "Enter your password": "パスワードを入力ください",
+  "Name": "氏名",
+  "Password": "パスワード"
 }

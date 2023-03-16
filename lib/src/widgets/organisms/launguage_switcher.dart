@@ -1,24 +1,26 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
+import "package:easy_localization/easy_localization.dart";
+import 'package:flutter/material.dart'
+    show BuildContext, FloatingActionButton, StatelessWidget, Text, Widget;
 
 import '../../config/themes/colors.dart';
+import '../../core/utils/constants.dart' show AppLocale;
 
-class LaunguageSwitcher extends StatelessWidget {
-  const LaunguageSwitcher({super.key});
+class LanguageSwitcher extends StatelessWidget {
+  const LanguageSwitcher({super.key});
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      backgroundColor: context.locale.toString() == "ja"
+      backgroundColor: context.locale == AppLocale.ja
           ? AppColors.flagColor[0]
           : AppColors.flagColor[1],
       onPressed: () {
-        context.locale.toString() == "en"
-            ? context.setLocale(const Locale('ja'))
-            : context.setLocale(const Locale('en'));
+        context.locale == AppLocale.ja
+            ? context.setLocale(AppLocale.en)
+            : context.setLocale(AppLocale.ja);
       },
       child: Text(
-        context.locale.toString() == "en" ? "EN" : "JP",
+        context.locale == AppLocale.en ? "EN" : "JP",
       ),
     );
   }

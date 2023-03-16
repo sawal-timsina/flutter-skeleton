@@ -4,33 +4,40 @@ import '../../core/utils/constants.dart';
 import 'launguage_switcher.dart';
 
 class DraggableBox extends StatefulWidget {
-  final GlobalKey stackKey;
-  const DraggableBox({super.key, required this.stackKey});
+  final GlobalKey overlayKey;
+  const DraggableBox({super.key, required this.overlayKey});
 
   @override
   State<DraggableBox> createState() => _DraggableBoxState();
 }
 
 class _DraggableBoxState extends State<DraggableBox> {
-  var _x = 50.0;
-  var _y = 50.0;
+  late double _positionX;
+  late double _positionY;
+  @override
+  void initState() {
+    _positionX = 300;
+    _positionY = 200;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: _x,
-      top: _y,
+      left: _positionX,
+      top: _positionY,
       child: Draggable(
-        feedback: const LaunguageSwitcher(),
+        feedback: const LanguageSwitcher(),
         childWhenDragging: Container(),
         onDragEnd: (details) => {
           setState(() {
-            final parentPos = widget.stackKey.globalPaintBounds;
+            final parentPos = widget.overlayKey.globalPaintBounds;
             if (parentPos == null) return;
-            _x = details.offset.dx - parentPos.left;
-            _y = details.offset.dy - parentPos.top;
+            _positionX = details.offset.dx - parentPos.left;
+            _positionY = details.offset.dy - parentPos.top;
           })
         },
-        child: const LaunguageSwitcher(),
+        child: const LanguageSwitcher(),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -57,8 +58,8 @@ class _DemoState extends State<Demo> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         required: true,
                         name: "name",
-                        label: "Name",
-                        hintText: "Enter your name",
+                        label: tr("Name"),
+                        hintText: tr("Enter your name"),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(errorText: "Required")
                         ]),
@@ -68,8 +69,8 @@ class _DemoState extends State<Demo> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         required: true,
                         name: "password",
-                        label: "Password",
-                        hintText: "Enter your password",
+                        label: tr("Password"),
+                        hintText: tr("Enter your password"),
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(errorText: "Required")
                         ]),

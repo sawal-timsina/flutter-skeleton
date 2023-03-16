@@ -20,7 +20,7 @@ class App extends StatelessWidget {
 
   App({Key? key}) : super(key: key);
 
-  final GlobalKey stackKey = GlobalKey();
+  final GlobalKey overlayKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +49,11 @@ class App extends StatelessWidget {
             supportedLocales: context.supportedLocales,
             builder: (context, child) {
               return Overlay(
-                key: stackKey,
+                key: overlayKey,
                 initialEntries: [
                   OverlayEntry(builder: (_) => child!),
                   OverlayEntry(
-                    builder: (_) => DraggableBox(stackKey: stackKey),
+                    builder: (_) => DraggableBox(overlayKey: overlayKey),
                   ),
                 ],
               );

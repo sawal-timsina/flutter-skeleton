@@ -61,3 +61,8 @@ extension GlobalKeyExtension on GlobalKey {
     }
   }
 }
+
+class AppLocale {
+  static const Locale ja = Locale("ja");
+  static const Locale en = Locale("en");
+}
