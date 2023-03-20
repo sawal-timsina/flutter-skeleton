@@ -9,6 +9,7 @@ import 'config/routes/app_routes.dart';
 import 'config/themes/app_theme.dart';
 import 'providers/auth_provider.dart';
 import 'providers/onboarding_provider.dart';
+import 'widgets/organisms/dragable.dart';
 
 final mainNavigator = GlobalKey<NavigatorState>();
 
@@ -17,7 +18,9 @@ class App extends StatelessWidget {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
-  const App({Key? key}) : super(key: key);
+  App({Key? key}) : super(key: key);
+
+  final GlobalKey overlayKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,7 @@ class App extends StatelessWidget {
       builder: (context, child) {
         return Sizer(builder: (_, orientation, deviceType) {
           return MaterialApp.router(
+            locale: context.locale,
             debugShowCheckedModeBanner: kDebugMode,
             routerConfig: _.read<AppRouter>().router,
             title: tr("Skeleton"),
@@ -43,6 +47,17 @@ class App extends StatelessWidget {
               ...context.localizationDelegates
             ],
             supportedLocales: context.supportedLocales,
+            builder: (context, child) {
+              return Overlay(
+                key: overlayKey,
+                initialEntries: [
+                  OverlayEntry(builder: (_) => child!),
+                  OverlayEntry(
+                    builder: (_) => DraggableBox(overlayKey: overlayKey),
+                  ),
+                ],
+              );
+            },
           );
         });
       },

@@ -10,13 +10,16 @@ void main() async {
 
   await initializeDependencies();
 
-  runApp(EasyLocalization(
-    path: 'assets/translations',
-    useOnlyLangCode: true,
-    startLocale: const Locale(Config.locale),
-    supportedLocales: const [
-      Locale('en'),
-    ],
-    child: const App(),
-  ));
+  runApp(
+    EasyLocalization(
+      path: 'assets/translations',
+      useOnlyLangCode: true,
+      startLocale: const Locale(Config.locale),
+      supportedLocales: const [
+        Locale('en'),
+        Locale('ja'),
+      ],
+      child: App(),
+    ),
+  );
 }
