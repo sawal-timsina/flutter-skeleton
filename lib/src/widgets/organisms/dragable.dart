@@ -5,6 +5,7 @@ import 'launguage_switcher.dart';
 
 class DraggableBox extends StatefulWidget {
   final GlobalKey overlayKey;
+
   const DraggableBox({super.key, required this.overlayKey});
 
   @override
@@ -12,14 +13,9 @@ class DraggableBox extends StatefulWidget {
 }
 
 class _DraggableBoxState extends State<DraggableBox> {
-  late double _positionX;
-  late double _positionY;
-  @override
-  void initState() {
-    _positionX = 300;
-    _positionY = 200;
-    super.initState();
-  }
+  double _positionX = 0;
+
+  double _positionY = 100;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +25,13 @@ class _DraggableBoxState extends State<DraggableBox> {
       child: Draggable(
         feedback: const LanguageSwitcher(),
         childWhenDragging: Container(),
-        onDragEnd: (details) => {
+        onDragEnd: (details) {
+          final parentPos = widget.overlayKey.globalPaintBounds;
+          if (parentPos == null) return;
           setState(() {
-            final parentPos = widget.overlayKey.globalPaintBounds;
-            if (parentPos == null) return;
             _positionX = details.offset.dx - parentPos.left;
             _positionY = details.offset.dy - parentPos.top;
-          })
+          });
         },
         child: const LanguageSwitcher(),
       ),
