@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../core/utils/constants.dart';
+import 'package:flutter/material.dart' show Color, Colors, MaterialColor;
 
 class AppColors {
   static const MaterialColor primary = MaterialColor(0xFF2196F3, <int, Color>{
@@ -18,11 +16,7 @@ class AppColors {
   static const Color black = Color(0xFF333333);
   static const Color greyDark = Color(0xFF999999);
   static const Color greyLight = Color(0xFFF3F4F8);
-  static const Color secondary = Color(0xFF097693);
+  static const Color secondary = Colors.pinkAccent;
   static const Color warning = Color(0xFFBD5D06);
   static const Color error = Color(0xFFA40E15);
-  static List<Color> flagColor = [
-    HexColor.fromHex("#E61F34"),
-    HexColor.fromHex("#002967")
-  ];
 }

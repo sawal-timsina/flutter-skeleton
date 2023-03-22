@@ -9,30 +9,26 @@ import 'config/routes/app_routes.dart';
 import 'config/themes/app_theme.dart';
 import 'providers/auth_provider.dart';
 import 'providers/onboarding_provider.dart';
-import 'widgets/organisms/dragable.dart';
-
-final mainNavigator = GlobalKey<NavigatorState>();
+import 'widgets/organisms/app_settings.dart';
 
 class App extends StatelessWidget {
   static void dismissKeyboard() {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
-  App({Key? key}) : super(key: key);
-
-  final GlobalKey overlayKey = GlobalKey();
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<OnboardingProvider>(
           create: (_) => OnboardingProvider(),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<AuthProvider>(
           create: (_) => AuthProvider(),
         ),
-        Provider<AppRouter>(create: (_) => AppRouter(_.read<AuthProvider>()))
+        Provider<AppRouter>(create: (context) => AppRouter(context))
       ],
       builder: (context, child) {
         return Sizer(builder: (_, orientation, deviceType) {
@@ -49,12 +45,9 @@ class App extends StatelessWidget {
             supportedLocales: context.supportedLocales,
             builder: (context, child) {
               return Overlay(
-                key: overlayKey,
                 initialEntries: [
                   OverlayEntry(builder: (_) => child!),
-                  OverlayEntry(
-                    builder: (_) => DraggableBox(overlayKey: overlayKey),
-                  ),
+                  OverlayEntry(builder: (_) => const AppSettings()),
                 ],
               );
             },
