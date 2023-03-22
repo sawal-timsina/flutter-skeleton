@@ -1,59 +1,41 @@
 import 'package:flutter/material.dart'
     show
-        BuildContext,
-        Color,
-        Colors,
-        CrossAxisAlignment,
-        Flexible,
-        Icon,
-        IconData,
-        Icons,
-        Row,
-        ScaffoldMessenger,
-        SingleChildScrollView,
-        SizedBox,
-        SnackBar,
-        Text;
+    Color,
+    Colors,
+    CrossAxisAlignment,
+    Flexible,
+    Icon,
+    IconData,
+    Icons,
+    Row,
+    ScaffoldMessenger,
+    SingleChildScrollView,
+    SizedBox,
+    SnackBar,
+    Text;
 
-showError(BuildContext context, {required String message}) {
-  _snackBar(
-    context,
-    icon: Icons.info_outline,
-    message: message,
-    color: Colors.red,
-  );
+import '../../app.dart';
+
+showError({required String message}) {
+  _snackBar(icon: Icons.info_outline, message: message, color: Colors.red);
 }
 
-showSuccess(BuildContext context, {required String message}) {
-  _snackBar(
-    context,
-    icon: Icons.info_outline,
-    message: message,
-    color: Colors.green,
-  );
+showSuccess({required String message}) {
+  _snackBar(icon: Icons.info_outline, message: message, color: Colors.green);
 }
 
-showWarning(BuildContext context, {required String message}) {
-  _snackBar(
-    context,
-    icon: Icons.info_outline,
-    message: message,
-    color: Colors.yellow,
-  );
+showWarning({required String message}) {
+  _snackBar(icon: Icons.info_outline, message: message, color: Colors.yellow);
 }
 
-showInfo(BuildContext context, {required String message}) {
+showInfo({required String message}) {
   _snackBar(
-    context,
-    icon: Icons.info_outline,
-    message: message,
-    color: Colors.lightBlue,
-  );
+      icon: Icons.info_outline, message: message, color: Colors.lightBlue);
 }
 
-_snackBar(BuildContext context,
+_snackBar(
     {required IconData icon, required String message, required Color color}) {
-  ScaffoldMessenger.of(context)
+  ScaffoldMessenger.of(mainNavigator.currentState!.context)
     ..hideCurrentSnackBar()
     ..showSnackBar(SnackBar(
       content: Row(
