@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart'
     show
+        BuildContext,
         Color,
         Colors,
         CrossAxisAlignment,
@@ -14,28 +15,45 @@ import 'package:flutter/material.dart'
         SnackBar,
         Text;
 
-import '../../app.dart';
-
-showError({required String message}) {
-  _snackBar(icon: Icons.info_outline, message: message, color: Colors.red);
-}
-
-showSuccess({required String message}) {
-  _snackBar(icon: Icons.info_outline, message: message, color: Colors.green);
-}
-
-showWarning({required String message}) {
-  _snackBar(icon: Icons.info_outline, message: message, color: Colors.yellow);
-}
-
-showInfo({required String message}) {
+showError(BuildContext context, {required String message}) {
   _snackBar(
-      icon: Icons.info_outline, message: message, color: Colors.lightBlue);
+    context,
+    icon: Icons.info_outline,
+    message: message,
+    color: Colors.red,
+  );
 }
 
-_snackBar(
+showSuccess(BuildContext context, {required String message}) {
+  _snackBar(
+    context,
+    icon: Icons.info_outline,
+    message: message,
+    color: Colors.green,
+  );
+}
+
+showWarning(BuildContext context, {required String message}) {
+  _snackBar(
+    context,
+    icon: Icons.info_outline,
+    message: message,
+    color: Colors.yellow,
+  );
+}
+
+showInfo(BuildContext context, {required String message}) {
+  _snackBar(
+    context,
+    icon: Icons.info_outline,
+    message: message,
+    color: Colors.lightBlue,
+  );
+}
+
+_snackBar(BuildContext context,
     {required IconData icon, required String message, required Color color}) {
-  ScaffoldMessenger.of(mainNavigator.currentState!.context)
+  ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(SnackBar(
       content: Row(
