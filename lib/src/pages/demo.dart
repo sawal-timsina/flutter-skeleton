@@ -124,7 +124,7 @@ class _DemoState extends State<Demo> {
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  context.push(AppPage.demo.toPath);
+                  context.push("/${AppPage.demo.toPath}");
                 },
                 child: Text("push :: ${AppPage.demo.toPath}"),
               ),
