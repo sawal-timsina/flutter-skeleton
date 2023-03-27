@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart'
     show
-        Color,
-        Colors,
-        CrossAxisAlignment,
-        Flexible,
-        Icon,
-        IconData,
-        Icons,
-        Row,
-        ScaffoldMessenger,
-        SingleChildScrollView,
-        SizedBox,
-        SnackBar,
-        Text;
+    Color,
+    Colors,
+    CrossAxisAlignment,
+    Flexible,
+    Icon,
+    IconData,
+    Icons,
+    Row,
+    ScaffoldMessenger,
+    SingleChildScrollView,
+    SizedBox,
+    SnackBar,
+    Text;
 
 import '../../app.dart';
 

@@ -2,9 +2,15 @@ import 'dart:ui';
 
 import "package:easy_localization/easy_localization.dart";
 import 'package:flutter/material.dart'
-    show BuildContext, Colors, FloatingActionButton, StatelessWidget, Text, Theme, Widget;
+    show
+        BuildContext,
+        Colors,
+        FloatingActionButton,
+        StatelessWidget,
+        Text,
+        Theme,
+        Widget;
 
-import '../../config/themes/colors.dart';
 import '../../core/utils/constants.dart' show AppLocale;
 
 class LanguageSwitcher extends StatelessWidget {
@@ -15,19 +21,22 @@ class LanguageSwitcher extends StatelessWidget {
     return FloatingActionButton(
       mini: true,
       backgroundColor: context.locale == AppLocale.ja
-          ? AppColors.flagColor[0]
-          : AppColors.flagColor[1],
+          ? Theme.of(context).colorScheme.primary
+          : Theme.of(context).colorScheme.secondary,
       onPressed: () {
         context.locale == AppLocale.ja
             ? context.setLocale(AppLocale.en)
             : context.setLocale(AppLocale.ja);
       },
       child: Text(
-        context.locale == AppLocale.en ? "EN" : "JP",
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-          color: Colors.white,
-          fontWeight: FontWeight.bold
-        ),
+        (context.locale == AppLocale.en
+                ? AppLocale.en.languageCode
+                : AppLocale.ja.languageCode)
+            .toUpperCase(),
+        style: Theme.of(context)
+            .textTheme
+            .bodySmall
+            ?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
       ),
     );
   }

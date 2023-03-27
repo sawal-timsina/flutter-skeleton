@@ -49,13 +49,10 @@ class AppTheme {
   );
 
   static ThemeData get light {
-    return ThemeData(
-      brightness: Brightness.light,
-      primarySwatch: AppColors.primary,
-      primaryColorDark: AppColors.primary.shade700,
-      primaryColorLight: AppColors.primary.shade300,
+    ThemeData themeData = ThemeData(
+      scaffoldBackgroundColor: Colors.black26,
       colorScheme: const ColorScheme(
-        background: Colors.white,
+        background: Colors.black87,
         brightness: Brightness.light,
         primary: AppColors.primary,
         onPrimary: Colors.white,
@@ -67,6 +64,15 @@ class AppTheme {
         surface: Colors.white,
         onSurface: Colors.grey,
       ),
+      textTheme: const TextTheme(
+        displayLarge: _displayLarge,
+        displayMedium: _displayMedium,
+        bodyLarge: _bodyLarge,
+        bodyMedium: _bodyMedium,
+        labelLarge: _labelLarge,
+      ),
+    );
+    themeData = themeData.copyWith(
       scaffoldBackgroundColor: Colors.white,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       inputDecorationTheme: InputDecorationTheme(
@@ -103,19 +109,12 @@ class AppTheme {
           borderSide: BorderSide(color: AppColors.secondary, width: 1),
         ),
       ),
-      textTheme: const TextTheme(
-        displayLarge: _displayLarge,
-        displayMedium: _displayMedium,
-        bodyLarge: _bodyLarge,
-        bodyMedium: _bodyMedium,
-        labelLarge: _labelLarge,
-      ),
       appBarTheme: AppBarTheme(
-        actionsIconTheme: const IconThemeData(color: AppColors.black),
+        actionsIconTheme: const IconThemeData(color: Colors.white),
         shadowColor: Colors.transparent,
-        backgroundColor: AppColors.primary,
+        backgroundColor: themeData.primaryColor,
         centerTitle: true,
-        iconTheme: const IconThemeData(color: AppColors.black),
+        iconTheme: const IconThemeData(color: Colors.white),
         titleTextStyle: _labelLarge.copyWith(fontSize: 22, color: Colors.white),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -134,7 +133,7 @@ class AppTheme {
           textStyle: _labelLarge,
           elevation: 0,
           backgroundColor: Colors.white,
-          foregroundColor: AppColors.secondary,
+          foregroundColor: themeData.colorScheme.secondary,
           disabledForegroundColor: AppColors.greyDark,
         ),
       ),
@@ -146,7 +145,7 @@ class AppTheme {
           padding: const EdgeInsets.all(16),
           textStyle: _labelLarge,
           elevation: 0,
-          backgroundColor: AppColors.secondary,
+          backgroundColor: themeData.colorScheme.secondary,
           disabledBackgroundColor: AppColors.greyLight,
           disabledForegroundColor: AppColors.greyDark,
         ),
@@ -159,10 +158,11 @@ class AppTheme {
           padding: const EdgeInsets.all(16),
           textStyle: _labelLarge,
           elevation: 0,
-          foregroundColor: AppColors.secondary,
+          foregroundColor: themeData.colorScheme.secondary,
           disabledForegroundColor: AppColors.greyDark,
         ),
       ),
     );
+    return themeData;
   }
 }

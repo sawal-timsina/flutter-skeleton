@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'config.dart';
 import 'src/app.dart';
+import 'src/core/utils/constants.dart';
 import 'src/injector.dart';
 
 void main() async {
@@ -15,11 +16,8 @@ void main() async {
       path: 'assets/translations',
       useOnlyLangCode: true,
       startLocale: const Locale(Config.locale),
-      supportedLocales: const [
-        Locale('en'),
-        Locale('ja'),
-      ],
-      child: App(),
+      supportedLocales: AppLocale.locales,
+      child: const App(),
     ),
   );
 }

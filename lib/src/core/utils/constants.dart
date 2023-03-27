@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class Constants {
-  static const pageSize = 15;
+enum Flavour {
+  development,
+  production;
 }
 
 extension Merge on EdgeInsets {
@@ -39,30 +40,8 @@ extension Flatten on List {
   }
 }
 
-extension HexColor on Color {
-  static Color fromHex(String hexColorString) {
-    hexColorString = hexColorString.replaceAll("#", "");
-    if (hexColorString.length == 6) {
-      hexColorString = "FF$hexColorString";
-    }
-    return Color(int.parse(hexColorString, radix: 16));
-  }
-}
-
-extension GlobalKeyExtension on GlobalKey {
-  Rect? get globalPaintBounds {
-    final renderObject = currentContext?.findRenderObject();
-    var translation = renderObject?.getTransformTo(null).getTranslation();
-    if (translation != null && renderObject?.paintBounds != null) {
-      return renderObject!.paintBounds
-          .shift(Offset(translation.x, translation.y));
-    } else {
-      return null;
-    }
-  }
-}
-
 class AppLocale {
   static const Locale ja = Locale("ja");
   static const Locale en = Locale("en");
+  static const locales = [ja, en];
 }

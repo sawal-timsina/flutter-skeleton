@@ -16,30 +16,12 @@ class AuthProvider with ChangeNotifier {
 
   User? get dbUser => _dbUser;
 
-  bool _loggedIn = false;
+  bool _loggedIn = true;
 
   bool get loggedIn => _loggedIn;
 
-  bool _phoneVerified = false;
-
-  bool get phoneVerified => _phoneVerified;
-
-  void setPhoneVerified(bool phoneVerified) {
-    _phoneVerified = phoneVerified;
-    notifyListeners();
-  }
-
-  void setUerLoggedIn(bool phoneVerified) {
-    _loggedIn = true;
-    notifyListeners();
-  }
-
-  String _phoneNumber = "";
-
-  String get phoneNumber => _phoneNumber;
-
-  void setPhoneNumber(String phoneNumber) {
-    _phoneNumber = phoneNumber;
+  void setUserLoggedIn(bool loggedIn) {
+    _loggedIn = loggedIn;
     notifyListeners();
   }
 }
