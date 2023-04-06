@@ -109,7 +109,6 @@ fi
 echo "Checking for outdated packages..."
 OUTDATED=$(flutter pub outdated)
 
-# If there are outdated packages, print a message with the list of packages.
 if echo "$OUTDATED" | grep -q 'is outdated'; then
   echo "The following packages are outdated:"
   echo "$OUTDATED"
@@ -117,7 +116,6 @@ if echo "$OUTDATED" | grep -q 'is outdated'; then
   exit 1
 fi
 
-# If there are no outdated packages, print a success message.
 echo "All packages are up to date."
 
 
