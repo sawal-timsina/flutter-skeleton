@@ -63,7 +63,7 @@ And you can run `make set-env-dev | make set-env-prod` in terminal to set the re
 
 Add the below script in .git/hooks/precommit of project
 
-
+# Remove un used imports
 echo "Running dartfmt --fix-imports..."
 if ! dartfmt --fix-imports --set-exit-if-changed .
 then
@@ -73,7 +73,7 @@ then
 fi
 
 exit 0
-
+# To remove print 
 PATTERN="print\("
 
 FILES=$(git diff --cached --name-only --diff-filter=ACMR -- '*.dart')
@@ -87,6 +87,7 @@ echo "All print statements have been removed from your Dart code."
 
 exit 0
 
+# To Format Code    
 echo "Running dart format..."
 pub run dart_style:format
 
@@ -103,6 +104,7 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
+# Check Outdated packages
 
 echo "Checking for outdated packages..."
 OUTDATED=$(flutter pub outdated)
