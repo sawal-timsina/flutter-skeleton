@@ -58,3 +58,64 @@ Place the env files like `config.dart, google-services.json, GoogleService.plist
 folder.
 
 And you can run `make set-env-dev | make set-env-prod` in terminal to set the required environment files.
+
+# Pre-commit Script
+
+Add the below script in .git/hooks/precommit of project
+
+
+echo "Running dartfmt --fix-imports..."
+if ! dartfmt --fix-imports --set-exit-if-changed .
+then
+    echo ""
+    echo "There were formatting issues. Please fix them before committing."
+    exit 1
+fi
+
+exit 0
+
+PATTERN="print\("
+
+FILES=$(git diff --cached --name-only --diff-filter=ACMR -- '*.dart')
+
+for FILE in $FILES
+do
+  sed -i '' "s/$PATTERN//g" "$FILE"
+done
+echo "All print statements have been removed from your Dart code."
+
+
+exit 0
+
+echo "Running dart format..."
+pub run dart_style:format
+
+if [[ $? -ne 0 ]]; then
+    echo "dart format failed. Commit aborted."
+    exit 1
+fi
+
+echo "Running dart analyze..."
+dart analyze
+
+if [[ $? -ne 0 ]]; then
+    echo "dart analyze failed. Commit aborted."
+    exit 1
+fi
+
+
+echo "Checking for outdated packages..."
+OUTDATED=$(flutter pub outdated)
+
+# If there are outdated packages, print a message with the list of packages.
+if echo "$OUTDATED" | grep -q 'is outdated'; then
+  echo "The following packages are outdated:"
+  echo "$OUTDATED"
+  echo "Please update these packages before committing your code."
+  exit 1
+fi
+
+# If there are no outdated packages, print a success message.
+echo "All packages are up to date."
+
+
