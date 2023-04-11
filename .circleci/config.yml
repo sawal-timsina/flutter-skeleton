@@ -22,7 +22,6 @@ jobs:
       - run:
           name: Initializing the Config variables
           command: |
-            echo "$CONFIG" | base64 --decode > env/dev/config.dart
             echo "$CONFIG" | base64 --decode > lib/config.dart
             echo "$FIREBASE_OPTIONS" | base64 --decode > lib/firebase_options.dart
 
