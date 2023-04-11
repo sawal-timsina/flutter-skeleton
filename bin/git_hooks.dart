@@ -8,7 +8,8 @@ void main(List arguments) {
 }
 
 Future<bool> commitMsg() async {
-  return false;
+  print("here");
+  return true;
 }
 
 Future<bool> preCommit() async {
