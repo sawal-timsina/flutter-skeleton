@@ -31,6 +31,7 @@
 .pub/
 /build/
 
+
 # Web related
 lib/generated_plugin_registrant.dart
 
@@ -44,11 +45,17 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/app/google-services.json
+/android/app/keystore.jks
+/android/key.properties
+/android/local.properties
+pubspec.lock
 
 #config
 /lib/config.dart
 /env/dev/config.dart
 /env/prod/config.dart
+/lib/firebase_options.dart
 /env/dev/google-services.json
 /env/dev/GoogleService-Info.plist
 /env/prod/google-services.json

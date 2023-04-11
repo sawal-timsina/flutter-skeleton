@@ -1,0 +1,110 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@1.0.3
+  flutter: circleci/flutter@1.1.0
+
+jobs:
+  build-dev:
+    executor:
+      name: android/android-machine
+      resource-class: medium
+
+    steps:
+      - checkout
+
+      - flutter/install_sdk: # Install Flutter SDK
+          version: 3.3.9
+
+      - flutter/install_pub:
+          cache-version: v1
+
+      - run:
+          name: Initializing the Config variables
+          command: |
+            mkdir lib/config
+            echo "$CONFIG" | base64 --decode > lib/config/config.dart
+            echo "$FIREBASE_OPTIONS" | base64 --decode > lib/firebase_options.dart
+
+      - run:
+          name: Update App Name
+          command: |
+            sed -i "s/android:label=\".*\"/android:label=\"$APP_NAME\"/" android/app/src/main/AndroidManifest.xml
+
+      - run:
+          name: Initializing the Local properties variables
+          command: |
+            TAG_NAME=$(echo $CIRCLE_TAG | cut -d'-' -f1)
+            VERSION_CODE=$(echo $TAG_NAME | cut -d'v' -f2)
+            echo "flutter.versionName=$TAG_NAME 
+            flutter.versionCode=$VERSION_CODE
+            flutter.buildMode=release
+            flutter.sdk=/home/circleci/development/flutter
+            " > android/local.properties
+
+      - run:
+          name: Initializing the KEY properties variables
+          command: |
+            echo "$KEY_PROPERTIES" | base64 --decode > android/key.properties
+
+      - run:
+          name: Initializing the key store variables
+          command: |
+            echo "$KEYSTORE" | base64 --decode > android/app/keystore.jks
+
+      - run:
+          name: Add Google services to App
+          command: |
+            echo "$GOOGLE_APPLICATION_CREDENTIALS" | base64 --decode > android/app/google-services.json
+
+      - run:
+          name: Assemble release build
+          command: |
+            TAG_NAME=$(echo $CIRCLE_TAG | cut -d'-' -f1)
+            VERSION_CODE=$(echo $TAG_NAME | cut -d'v' -f2)
+            flutter build apk --split-per-abi --release --build-name=$VERSION_CODE
+
+      - store_artifacts:
+          path: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+      - run:
+          name: "Install Firebase CLI"
+          command: |
+            curl -sL firebase.tools | bash
+
+      - run:
+          name: Distribute app For testing
+          command: |
+            export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/android/app/google-services.json"  
+            TAG_NAME=$(echo $CIRCLE_TAG | cut -d'-' -f1)
+            VERSION_CODE=$(echo $TAG_NAME | cut -d'v' -f2)
+            DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+            firebase appdistribution:distribute build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk  \
+            --groups "Flutter-Skeleton-Tester" \
+            --app "$FIREBASE_APP_ID"  \
+            --release-notes "Version: $VERSION_CODE"
+      - run:
+          name: Upload artifact to GCS
+          command: |
+            pip3 install --user pyopenssl
+            sha512sum build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk | awk '{print $1}' | tee $SHA512
+            TAG_NAME=$(echo $CIRCLE_TAG | cut -d'-' -f1)
+            VERSION_CODE=$(echo $TAG_NAME | cut -d'v' -f2)
+            DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+            APP_URL=$(echo "gs://flutter-skeleton-a8531.appspot.com/app_$VERSION_CODE/app-release.apk")
+            gcloud auth activate-service-account --key-file=android/app/google-services.json
+            gsutil cp -r build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk $APP_URL
+            curl -X PUT -d '{"releaseDate":"'$DATE'","releaseNotes":"New update '$TAG_NAME'!","sha512":"'$SHA512'","url":"'$APP_URL'","version":"'$VERSION_CODE'"}' https://flutter-skeleton-a8531-default-rtdb.firebaseio.com/.json
+
+workflows:
+  version: 2
+  dev-workflow:
+    jobs:
+      - build-dev:
+          context: flutter-skeleton-dev
+          filters:
+            tags:
+              only:
+                - /v[0-9].*-dev/
+            branches:
+              ignore:
+                - /.*/
