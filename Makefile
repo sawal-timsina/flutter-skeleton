@@ -12,7 +12,7 @@ GOOGLE_SERVICE_IOS=$(IOS_DIR)/
 set-env-dev:
 	@cp -r env/dev/config.dart lib/
 	@cp -r env/dev/$(GOOGLE_SERVICE_JSON) $(GOOGLE_SERVICE_ANDROID)
-	@cp -r env/dev/$(GOOGLE_SERVICE_INFO) $(GOOGLE_SERVICE_IOS)
+#	@cp -r env/dev/$(GOOGLE_SERVICE_INFO) $(GOOGLE_SERVICE_IOS)
 
 	@cd android && ./gradlew clean && cd .. && yarn cache clean
 
@@ -21,10 +21,14 @@ set-env-dev:
 set-env-prod:
 	@cp -r env/prod/config.dart lib/
 	@cp -r env/prod/$(GOOGLE_SERVICE_JSON) $(GOOGLE_SERVICE_ANDROID)
-	@cp -r env/prod/$(GOOGLE_SERVICE_INFO) $(GOOGLE_SERVICE_IOS)
+#	@cp -r env/prod/$(GOOGLE_SERVICE_INFO) $(GOOGLE_SERVICE_IOS)
 
 	@cd android && ./gradlew clean && cd .. && yarn cache clean
 
 	@echo "$(GREEN)Successfully copied project prod environment config$(NC)"
 
 .PHONY: set-env-dev, set-env-prod
+
+
+
+
