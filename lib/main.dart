@@ -8,7 +8,7 @@ import 'src/core/utils/constants.dart';
 import 'src/injector.dart';
 
 void main() async {
-   GitHooks.init(targetPath: 'bin/git_hooks.dart');
+  GitHooks.init(targetPath: 'bin/git_hooks.dart');
   WidgetsFlutterBinding.ensureInitialized();
 
   await initializeDependencies();
