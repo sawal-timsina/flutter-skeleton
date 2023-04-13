@@ -69,7 +69,6 @@ Future<bool> preCommit() async {
         }
       }
     }
-
     return true;
   } catch (e) {
     return false;
