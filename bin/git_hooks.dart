@@ -3,10 +3,7 @@ import 'dart:io';
 import 'package:git_hooks/git_hooks.dart';
 
 void main(List arguments) {
-  // ignore: omit_local_variable_types
-  Map<Git, UserBackFun> params = {
-    Git.preCommit: preCommit
-  };
+  Map<Git, UserBackFun> params = {Git.preCommit: preCommit};
   GitHooks.call(arguments as List<String>, params);
 }
 
