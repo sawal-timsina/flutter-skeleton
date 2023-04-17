@@ -5,15 +5,9 @@ import 'package:git_hooks/git_hooks.dart';
 void main(List arguments) {
   // ignore: omit_local_variable_types
   Map<Git, UserBackFun> params = {
-    Git.commitMsg: commitMsg,
     Git.preCommit: preCommit
   };
   GitHooks.call(arguments as List<String>, params);
-}
-
-Future<bool> commitMsg() async {
-  print("running commit msg");
-  return true;
 }
 
 Future<bool> preCommit() async {
