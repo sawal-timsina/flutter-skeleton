@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../config/themes/colors.dart';
 import '../core/utils/route_path.dart';
 import '../providers/auth_provider.dart';
+import '../providers/biometric_auth_provider.dart';
 import '../providers/onboarding_provider.dart';
 import '../widgets/atoms/text_input.dart';
 
@@ -42,6 +43,8 @@ class _DemoState extends State<Demo> {
 
   @override
   Widget build(BuildContext context) {
+    final biometricAuthProvider = Provider.of<BiometricAuthProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -136,6 +139,32 @@ class _DemoState extends State<Demo> {
                 child: Text("pushNamed :: ${AppPage.register.toPath}"),
               ),
               const SizedBox(height: 15),
+              biometricAuthProvider.isBiometricSupported
+                  ? ListView.separated(
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 15),
+                      itemCount:
+                          biometricAuthProvider.supportedBiometricType.length,
+                      itemBuilder: ((context, index) {
+                        return ElevatedButton(
+                          onPressed: () async {
+                            if (await biometricAuthProvider.authWithBiometrics(
+                                biometricType: biometricAuthProvider
+                                    .supportedBiometricType[index])) {
+                              if (context.mounted) {
+                                context.push(AppPage.biometric.toPath);
+                              }
+                            }
+                          },
+                          child: Text(
+                            biometricAuthProvider.supportedBiometricType[index]
+                                .toString(),
+                          ),
+                        );
+                      }),
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),
