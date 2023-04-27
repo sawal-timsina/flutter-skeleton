@@ -50,7 +50,7 @@ class Tag extends StatelessWidget {
             title,
             style: Theme.of(context)
                 .textTheme
-                .caption
+                .bodySmall
                 ?.copyWith(color: textColor[type])
                 .merge(textStyle),
           ),
