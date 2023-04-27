@@ -106,10 +106,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_form_builder
-      sha256: "9551c7379adc01a3a3a1100057396407c9534ea8adc937d14a0edd96fcd9e1dc"
+      sha256: "236c96dad143a0e67c0f11522606d6b17b6510e97530cb73af355b018ded7c10"
       url: "https://pub.dev"
     source: hosted
-    version: "7.8.0"
+    version: "8.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -153,10 +153,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: feab99a20fd248c658c923ba98f4449ca6e575c3dee9fdf07146f4f33482c6bc
+      sha256: "4d141302e68dcdec0949ac798b5a8cf307eb6f79c70830ef1a2aec9b31827c28"
       url: "https://pub.dev"
     source: hosted
-    version: "6.5.5"
+    version: "6.5.8"
   http_parser:
     dependency: transitive
     description:
