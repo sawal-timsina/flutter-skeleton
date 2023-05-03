@@ -17,4 +17,5 @@ class OnboardingProvider with ChangeNotifier {
     _shouldShowOnboardingPage = false;
     notifyListeners();
   }
+  
 }

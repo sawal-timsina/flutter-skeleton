@@ -24,6 +24,7 @@ import 'config/routes/app_routes.dart';
 import 'config/themes/app_theme.dart';
 import 'core/utils/constants.dart';
 import 'providers/auth_provider.dart';
+import 'providers/biometric_auth_provider.dart';
 import 'providers/onboarding_provider.dart';
 import 'widgets/organisms/app_settings.dart';
 
@@ -45,6 +46,9 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<AuthProvider>(
           create: (_) => AuthProvider(),
+        ),
+        ChangeNotifierProvider<BiometricAuthProvider>(
+          create: (_) => BiometricAuthProvider(),
         ),
         Provider<AppRouter>(create: (context) => AppRouter(context))
       ],

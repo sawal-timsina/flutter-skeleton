@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' show BuildContext, Listenable;
+import 'package:flutter_skeleton/src/pages/biometric_auth.dart';
 import 'package:go_router/go_router.dart' show GoRoute, GoRouter, GoRouterState;
 import 'package:provider/provider.dart' show ReadContext;
 
@@ -39,6 +40,10 @@ class AppRouter {
         GoRoute(
           path: AppPage.register.toPath,
           builder: (context, state) => const Demo(title: "Register"),
+        ),
+        GoRoute(
+          path: AppPage.biometric.toPath,
+          builder: (context, state) => const BiometricAuth()
         ),
         GoRoute(
             path: AppPage.home.toPath,

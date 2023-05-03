@@ -23,5 +23,5 @@ class AuthProvider with ChangeNotifier {
   void setUserLoggedIn(bool loggedIn) {
     _loggedIn = loggedIn;
     notifyListeners();
-  }
+  } 
 }

@@ -1,4 +1,4 @@
-enum AppPage { home, login, onboarding, register, demo }
+enum AppPage { home, login, onboarding, register, demo, biometric }
 
 extension AppPageExtension on AppPage {
   String get toPath {
@@ -9,6 +9,8 @@ extension AppPageExtension on AppPage {
         return '/login';
       case AppPage.register:
         return '/register';
+      case AppPage.biometric:
+        return '/biometric';
       case AppPage.demo:
         return 'demo';
       case AppPage.home:
