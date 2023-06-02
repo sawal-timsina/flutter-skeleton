@@ -1,7 +1,0 @@
-import 'src/core/utils/constants.dart';
-
-class Config {
-  static const apiUrl = "https://apiurl";
-  static const locale = "en";
-  static const flavour = Flavour.development;
-}

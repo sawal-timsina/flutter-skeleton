@@ -100,10 +100,3 @@ workflows:
     jobs:
       - build-dev:
           context: flutter-skeleton-dev
-          filters:
-            tags:
-              only:
-                - /v[0-9].*-dev/
-            branches:
-              ignore:
-                - /.*/
