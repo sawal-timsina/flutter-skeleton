@@ -1,0 +1,82 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@1.0.3
+  flutter: circleci/flutter@1.1.0
+
+jobs:
+  build-dev:
+    executor:
+      name: android/android-machine
+      resource-class: medium
+
+    steps:
+      - checkout
+
+      - flutter/install_sdk: # Install Flutter SDK
+          version: 3.7.9
+
+      - flutter/install_pub:
+          cache-version: v1
+
+      - run:
+          name: Initializing the Config variables
+          command: |
+            echo "$CONFIG" | base64 --decode > lib/config.dart
+
+      - run:
+          name: Update App Name
+          command: |
+            sed -i "s/android:label=\".*\"/android:label=\"$CIRCLE_BRANCH\"/" android/app/src/main/AndroidManifest.xml
+
+      - run:
+          name: Initializing the Local properties variables
+          command: |
+            TAG_NAME=$(echo $CIRCLE_TAG | cut -d'-' -f1)
+            VERSION_CODE=$(echo $TAG_NAME | cut -d'v' -f2)
+            echo "flutter.versionName=$TAG_NAME 
+            flutter.versionCode=$VERSION_CODE
+            flutter.buildMode=release
+            flutter.sdk=/home/circleci/development/flutter
+            " > android/local.properties
+
+      - run:
+          name: Initializing the KEY properties variables
+          command: |
+            echo "$KEY_PROPERTIES" | base64 --decode > android/key.properties
+
+      - run:
+          name: Initializing the key store variables
+          command: |
+            echo "$KEYSTORE" | base64 --decode > android/app/keystore.jks
+      - run:
+          name: Assemble release build
+          command: |
+            TAG_NAME=$(echo $CIRCLE_TAG | cut -d'-' -f1)
+            VERSION_CODE=$(echo $TAG_NAME | cut -d'v' -f2)
+            flutter build apk --release --build-name=$VERSION_CODE
+
+      - store_artifacts:
+          path: build/app/outputs/apk/release/app-release.apk
+
+      - run:
+          name: Comment on PR
+          command: |
+            PR_NUMBER=${CIRCLE_PULL_REQUEST##*/}
+            CIRCLE_PROJECT_USERNAME=${CIRCLE_PROJECT_USERNAME}
+            CIRCLE_PROJECT_REPONAME=${CIRCLE_PROJECT_REPONAME}
+            ARTIFACT_URL=https://output.circle-artifacts.com/output/job/${CIRCLE_WORKFLOW_JOB_ID}/artifacts/${CIRCLE_NODE_INDEX}/build/app/outputs/apk/release/app-release.apk
+            COMMENT="Click [here]($ARTIFACT_URL) to download the app."
+            API_URL="https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/issues/${PR_NUMBER}/comments"
+            curl -X POST \
+              -H "Authorization: Bearer ${API_TOKEN}" \
+              -H "Content-Type: application/json" \
+              -d "{\"body\": \"${COMMENT}\"}" \
+              "${API_URL}"
+
+workflows:
+  version: 2
+  dev-workflow:
+    jobs:
+      - build-dev:
+          context: flutter-skeleton-dev
