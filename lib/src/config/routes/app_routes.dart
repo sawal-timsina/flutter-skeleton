@@ -72,7 +72,7 @@ class AppRouter {
           return AppPage.login.toPath;
         }
 
-        if (isLoggedIn && state.subloc == AppPage.home.toPath) {
+        if (isLoggedIn && state.location == AppPage.home.toPath) {
           return AppPage.home.toPath;
         }
 
