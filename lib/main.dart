@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:git_hooks/git_hooks.dart';
 
 import 'config.dart';
 import 'src/app.dart';
@@ -8,7 +9,7 @@ import 'src/injector.dart';
 import 'package:git_hooks/git_hooks.dart';
 
 void main() async {
-  GitHooks.init(targetPath: 'bin/git-hooks.dart');
+  GitHooks.init(targetPath: 'bin/git_hooks.dart');
   WidgetsFlutterBinding.ensureInitialized();
 
   await initializeDependencies();
