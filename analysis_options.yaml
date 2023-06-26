@@ -1,31 +1,45 @@
-# This file configures the analyzer, which statically analyzes Dart code to
-# check for errors, warnings, and lints.
-#
-# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
-# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
-# invoked from the command line by running `flutter analyze`.
-
-# The following line activates a set of recommended lints for Flutter apps,
-# packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
-linter:
-  # The lint rules applied to this project can be customized in the
-  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
-  # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at
-  # https://dart-lang.github.io/linter/lints/index.html.
-  #
-  # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
-  # or a specific dart file by using the `// ignore: name_of_lint` and
-  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
-  # producing the lint.
-  rules:
-    #    always_use_package_imports: true
-    prefer_relative_imports: true
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+analyzer:
+  errors:
+    avoid_print: error
+    camel_case_types: error
+    camel_case_extensions: error
+    non_constant_identifier_names: error
+    constant_identifier_names: error
+    directives_ordering: error
+    lines_longer_than_80_chars: error
+    curly_braces_in_flow_control_structures: error
+    avoid_dynamic_calls: error
+    avoid_empty_else: error
+    avoid_returning_null_for_future: error
+    avoid_types_as_parameter_names: error
+    cancel_subscriptions: error
+    collection_methods_unrelated_type: error
+    comment_references: error
+    control_flow_in_finally: error
+    deprecated_member_use_from_same_package: error
+    require_trailing_commas: error
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+linter:
+  rules:
+    avoid_print: true
+    camel_case_types: true
+    camel_case_extensions: true
+    library_prefixes: true
+    non_constant_identifier_names: true
+    constant_identifier_names: true
+    directives_ordering: true
+    lines_longer_than_80_chars: true
+    curly_braces_in_flow_control_structures: true
+    avoid_dynamic_calls: true
+    avoid_empty_else: true
+    avoid_returning_null_for_future: true
+    avoid_types_as_parameter_names: true
+    cancel_subscriptions: true
+    collection_methods_unrelated_type: true
+    comment_references: true
+    control_flow_in_finally: true
+    deprecated_member_use_from_same_package: true
+    require_trailing_commas: true
+    prefer_relative_imports: true
