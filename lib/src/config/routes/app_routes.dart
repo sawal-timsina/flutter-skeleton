@@ -41,20 +41,21 @@ class AppRouter {
           builder: (context, state) => const Demo(title: "Register"),
         ),
         GoRoute(
-            path: AppPage.home.toPath,
-            builder: (context, state) => Demo(
-                  title: "Home",
-                  args: DemoScreenArguments(AppPage.home.toPath),
-                ),
-            routes: [
-              GoRoute(
-                path: AppPage.demo.toPath,
-                builder: (context, state) => Demo(
-                  title: "Demo",
-                  args: DemoScreenArguments(AppPage.home.toPath),
-                ),
+          path: AppPage.home.toPath,
+          builder: (context, state) => Demo(
+            title: "Home",
+            args: DemoScreenArguments(AppPage.home.toPath),
+          ),
+          routes: [
+            GoRoute(
+              path: AppPage.demo.toPath,
+              builder: (context, state) => Demo(
+                title: "Demo",
+                args: DemoScreenArguments(AppPage.home.toPath),
               ),
-            ]),
+            ),
+          ],
+        ),
       ],
       errorBuilder: (context, state) => const NotFoundPage(),
       redirect: (BuildContext context, GoRouterState state) {

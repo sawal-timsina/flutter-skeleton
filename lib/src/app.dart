@@ -49,29 +49,31 @@ class App extends StatelessWidget {
         Provider<AppRouter>(create: (context) => AppRouter(context))
       ],
       builder: (context, child) {
-        return Sizer(builder: (_, orientation, deviceType) {
-          return MaterialApp.router(
-            locale: context.locale,
-            debugShowCheckedModeBanner: kDebugMode,
-            routerConfig: _.read<AppRouter>().router,
-            title: tr("Skeleton"),
-            theme: AppTheme.light,
-            localizationsDelegates: [
-              FormBuilderLocalizations.delegate,
-              ...context.localizationDelegates
-            ],
-            supportedLocales: context.supportedLocales,
-            builder: (context, child) {
-              return Overlay(
-                initialEntries: [
-                  OverlayEntry(builder: (_) => child!),
-                  if (Config.flavour == Flavour.development)
-                    OverlayEntry(builder: (_) => const AppSettings()),
-                ],
-              );
-            },
-          );
-        });
+        return Sizer(
+          builder: (_, orientation, deviceType) {
+            return MaterialApp.router(
+              locale: context.locale,
+              debugShowCheckedModeBanner: kDebugMode,
+              routerConfig: _.read<AppRouter>().router,
+              title: tr("Skeleton"),
+              theme: AppTheme.light,
+              localizationsDelegates: [
+                FormBuilderLocalizations.delegate,
+                ...context.localizationDelegates
+              ],
+              supportedLocales: context.supportedLocales,
+              builder: (context, child) {
+                return Overlay(
+                  initialEntries: [
+                    OverlayEntry(builder: (_) => child!),
+                    if (Config.flavour == Flavour.development)
+                      OverlayEntry(builder: (_) => const AppSettings()),
+                  ],
+                );
+              },
+            );
+          },
+        );
       },
     );
   }

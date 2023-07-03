@@ -82,30 +82,35 @@ extension BuildContextEntension<T> on BuildContext {
     );
   }
 
-  snackBar(
-      {required IconData icon, required String message, required Color color}) {
+  snackBar({
+    required IconData icon,
+    required String message,
+    required Color color,
+  }) {
     return ScaffoldMessenger.of(this)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(
-        content: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(
-              icon,
-              color: Colors.white,
-            ),
-            const SizedBox(width: 8),
-            Flexible(
-              child: SingleChildScrollView(
-                child: Text(
-                  message,
-                  softWrap: true,
+      ..showSnackBar(
+        SnackBar(
+          content: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                icon,
+                color: Colors.white,
+              ),
+              const SizedBox(width: 8),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Text(
+                    message,
+                    softWrap: true,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
+          backgroundColor: color,
         ),
-        backgroundColor: color,
-      ));
+      );
   }
 }

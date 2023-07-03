@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:git_hooks/git_hooks.dart';
@@ -41,13 +42,20 @@ Future<bool> preCommit() async {
       result =
           await Process.run('dart', ['analyze', '--fatal-infos', dartFile]);
       if (result.exitCode != 0) {
-        print("Non-Fatal errors in $dartFile Please check");
+        log("Non-Fatal errors in $dartFile Please check");
         showWarning = true;
       }
     }
     if (showWarning) {
-      print(
-          "Please check:\n 1. Unused imports\n 2. Unused variables\n 3. Redundant null checks\n 4. Unused methods\n 5. Inconsistent return types\n 6. Missing required parameters");
+      log(
+        "Please check:\n"
+            "1. Unused imports\n"
+            "2. Unused variables\n"
+            "3. Redundant null checks\n"
+            "4. Unused methods\n"
+            "5. Inconsistent return types\n"
+            "6. Missing required parameters",
+      );
     }
     result =
         await Process.run('dart', ['pub', 'outdated', '--no-dev-dependencies']);

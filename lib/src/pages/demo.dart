@@ -86,7 +86,8 @@ class _DemoState extends State<Demo> {
                   if (widget.args.path == AppPage.login.toPath ||
                       widget.args.path == AppPage.home.toPath) {
                     context.read<AuthProvider>().setUserLoggedIn(
-                        !context.read<AuthProvider>().loggedIn);
+                          !context.read<AuthProvider>().loggedIn,
+                        );
                     return;
                   }
 
@@ -103,9 +104,11 @@ class _DemoState extends State<Demo> {
                         ),
                       ),
                     ),
-                child: Text(widget.args.path == AppPage.onboarding.toPath
-                    ? "Finish Onboarding"
-                    : "Login/Logout"),
+                child: Text(
+                  widget.args.path == AppPage.onboarding.toPath
+                      ? "Finish Onboarding"
+                      : "Login/Logout",
+                ),
               ),
               const SizedBox(height: 15),
               ElevatedButton(

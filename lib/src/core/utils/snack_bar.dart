@@ -30,32 +30,40 @@ showWarning({required String message}) {
 
 showInfo({required String message}) {
   _snackBar(
-      icon: Icons.info_outline, message: message, color: Colors.lightBlue);
+    icon: Icons.info_outline,
+    message: message,
+    color: Colors.lightBlue,
+  );
 }
 
-_snackBar(
-    {required IconData icon, required String message, required Color color}) {
+_snackBar({
+  required IconData icon,
+  required String message,
+  required Color color,
+}) {
   ScaffoldMessenger.of(mainNavigator.currentState!.context)
     ..hideCurrentSnackBar()
-    ..showSnackBar(SnackBar(
-      content: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(
-            icon,
-            color: Colors.white,
-          ),
-          const SizedBox(width: 8),
-          Flexible(
-            child: SingleChildScrollView(
-              child: Text(
-                message,
-                softWrap: true,
+    ..showSnackBar(
+      SnackBar(
+        content: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              icon,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 8),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Text(
+                  message,
+                  softWrap: true,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
+        backgroundColor: color,
       ),
-      backgroundColor: color,
-    ));
+    );
 }

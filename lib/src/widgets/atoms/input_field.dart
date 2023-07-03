@@ -44,11 +44,13 @@ class InputField extends StatelessWidget {
           spacing: 8,
           children: [
             if (label != null)
-              Text(label!,
-                  style: (labelStyle ??
-                          Theme.of(context).textTheme.titleMedium)!
-                      .copyWith(
-                          color: enabled == false ? AppColors.greyDark : null)),
+              Text(
+                label!,
+                style: (labelStyle ?? Theme.of(context).textTheme.titleMedium)!
+                    .copyWith(
+                  color: enabled == false ? AppColors.greyDark : null,
+                ),
+              ),
             if (required == true)
               Text(
                 "*",

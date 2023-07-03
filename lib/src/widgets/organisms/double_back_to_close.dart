@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class DoubleBackToClose extends StatefulWidget {
   final Widget child;
-  final Function? onBackPress;
+  final Future<bool> Function()? onBackPress;
 
   const DoubleBackToClose({
     Key? key,
