@@ -1,15 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
-import '../config/themes/colors.dart';
-import '../core/utils/route_path.dart';
-import '../providers/auth_provider.dart';
-import '../providers/onboarding_provider.dart';
-import '../widgets/atoms/text_input.dart';
+import '../core/extentions/button.dart';
+import '../core/extentions/context.dart';
+import 'login.dart';
+import 'onboarding.dart';
 
 class DemoScreenArguments {
   final String path;
@@ -18,13 +14,14 @@ class DemoScreenArguments {
 }
 
 class Demo extends StatefulWidget {
+  static const String routeName = "demo";
   final String title;
   final DemoScreenArguments args;
 
   const Demo({
     Key? key,
     required this.title,
-    this.args = const DemoScreenArguments("asd"),
+    this.args = const DemoScreenArguments("Demo"),
   }) : super(key: key);
 
   @override
@@ -52,91 +49,38 @@ class _DemoState extends State<Demo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              FormBuilder(
-                key: formKey,
-                child: Column(
-                  children: [
-                    TextInput(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      required: true,
-                      name: "name",
-                      label: tr("Name"),
-                      hintText: tr("Enter your name"),
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(errorText: "Required")
-                      ]),
-                    ),
-                    const SizedBox(height: 8),
-                    TextInput(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      required: true,
-                      name: "password",
-                      label: tr("Password"),
-                      hintText: tr("Enter your password"),
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(errorText: "Required")
-                      ]),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 18),
               OutlinedButton(
-                onPressed: () {
-                  if (widget.args.path == AppPage.login.toPath ||
-                      widget.args.path == AppPage.home.toPath) {
-                    context.read<AuthProvider>().setUserLoggedIn(
-                          !context.read<AuthProvider>().loggedIn,
-                        );
-                    return;
-                  }
-
-                  if (widget.args.path == AppPage.onboarding.toPath) {
-                    context.read<OnboardingProvider>().onboardingFinish();
-                  }
-                },
-                style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                      side: const MaterialStatePropertyAll(
-                        BorderSide(
-                          width: 1.0,
-                          style: BorderStyle.solid,
-                          color: AppColors.secondary,
-                        ),
-                      ),
-                    ),
-                child: Text(
-                  widget.args.path == AppPage.onboarding.toPath
-                      ? "Finish Onboarding"
-                      : "Login/Logout",
-                ),
+                onPressed: () {},
+                style: context.theme.outlinedButtonTheme.outline(),
+                child: const Text("Click me"),
               ),
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  context.go(AppPage.login.toPath);
+                  context.go(Login.routeName);
                 },
-                child: Text("go :: ${AppPage.login.toPath}"),
+                child: const Text("go :: ${Login.routeName}"),
               ),
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  context.push(AppPage.onboarding.toPath);
+                  context.push(Onboarding.routeName);
                 },
-                child: Text("push :: ${AppPage.onboarding.toPath}"),
+                child: const Text("push :: ${Onboarding.routeName}"),
               ),
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  context.push("/${AppPage.demo.toPath}");
+                  context.push(Demo.routeName);
                 },
-                child: Text("push :: ${AppPage.demo.toPath}"),
+                child: const Text("push :: ${Demo.routeName}"),
               ),
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  context.push(AppPage.register.toPath);
+                  context.pushReplacementNamed(Login.routeName);
                 },
-                child: Text("pushNamed :: ${AppPage.register.toPath}"),
+                child: const Text("pushNamed :: ${Login.routeName}"),
               ),
               const SizedBox(height: 15),
             ],
