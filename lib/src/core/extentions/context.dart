@@ -17,6 +17,7 @@ import 'package:flutter/material.dart'
         Text,
         TextStyle,
         Theme,
+        ThemeData,
         Widget,
         Wrap,
         showModalBottomSheet;
@@ -24,11 +25,14 @@ import 'package:flutter/material.dart'
 extension BuildContextEntension<T> on BuildContext {
   /*------------------ size --------------*/
 
-  double get width => MediaQuery.of(this).size.width;
-
-  double get height => MediaQuery.of(this).size.height;
-
   Size get size => MediaQuery.of(this).size;
+
+  double get width => size.width;
+
+  double get height => size.height;
+
+  /*------------------ theme --------------*/
+  ThemeData get theme => Theme.of(this);
 
   /*------------------ text styles --------------*/
 
@@ -41,6 +45,7 @@ extension BuildContextEntension<T> on BuildContext {
   TextStyle? get bodyLarge => Theme.of(this).textTheme.bodyLarge;
 
   TextStyle? get bodyMedium => Theme.of(this).textTheme.bodyMedium;
+
   TextStyle? get titleMedium => Theme.of(this).textTheme.titleMedium;
 
   /*------------------ Theme colors --------------*/
