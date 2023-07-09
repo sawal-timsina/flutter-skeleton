@@ -6,7 +6,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../widgets/atoms/text_input.dart';
 
 class Register extends StatefulWidget {
-  static const String routeName = "/login";
+  static const String routeName = "/register";
 
   const Register({super.key});
 

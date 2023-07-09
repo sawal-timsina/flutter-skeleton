@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../core/extentions/button.dart';
 import '../core/extentions/context.dart';
+import '../providers/auth_provider.dart';
+import 'home.dart';
 import 'login.dart';
 import 'onboarding.dart';
 
@@ -14,7 +16,7 @@ class DemoScreenArguments {
 }
 
 class Demo extends StatefulWidget {
-  static const String routeName = "demo";
+  static const String routeName = "/demo";
   final String title;
   final DemoScreenArguments args;
 
@@ -29,14 +31,6 @@ class Demo extends StatefulWidget {
 }
 
 class _DemoState extends State<Demo> {
-  final formKey = GlobalKey<FormBuilderState>();
-
-  onPressed() {
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,9 +44,11 @@ class _DemoState extends State<Demo> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.read<AuthProvider>().setUserLoggedIn(false);
+                },
                 style: context.theme.outlinedButtonTheme.outline(),
-                child: const Text("Click me"),
+                child: const Text("Logout"),
               ),
               const SizedBox(height: 15),
               ElevatedButton(
@@ -64,6 +60,13 @@ class _DemoState extends State<Demo> {
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
+                  context.push(Login.routeName);
+                },
+                child: const Text("push :: ${Login.routeName}"),
+              ),
+              const SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () {
                   context.push(Onboarding.routeName);
                 },
                 child: const Text("push :: ${Onboarding.routeName}"),
@@ -71,14 +74,14 @@ class _DemoState extends State<Demo> {
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  context.push(Demo.routeName);
+                  context.push("${Home.routeName}/${Demo.routeName}");
                 },
                 child: const Text("push :: ${Demo.routeName}"),
               ),
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  context.pushReplacementNamed(Login.routeName);
+                  context.pushReplacement(Login.routeName);
                 },
                 child: const Text("pushNamed :: ${Login.routeName}"),
               ),

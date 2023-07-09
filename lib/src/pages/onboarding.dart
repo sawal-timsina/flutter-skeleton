@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/onboarding_provider.dart';
 
 class Onboarding extends StatefulWidget {
   static const String routeName = "/onboarding";
@@ -16,8 +19,13 @@ class _OnboardingState extends State<Onboarding> {
       appBar: AppBar(
         title: const Text("Onboarding"),
       ),
-      body: const Center(
-        child: Text("Onboarding"),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            context.read<OnboardingProvider>().onboardingFinish();
+          },
+          child: const Text("Finish Onboarding"),
+        ),
       ),
     );
   }

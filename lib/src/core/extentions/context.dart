@@ -21,8 +21,14 @@ import 'package:flutter/material.dart'
         Widget,
         Wrap,
         showModalBottomSheet;
+import 'package:go_router/go_router.dart';
 
 extension BuildContextEntension<T> on BuildContext {
+  /*------------------ go router --------------*/
+  GoRouter get router => GoRouter.of(this);
+
+  GoRouterState get routerState => GoRouterState.of(this);
+
   /*------------------ size --------------*/
 
   Size get size => MediaQuery.of(this).size;

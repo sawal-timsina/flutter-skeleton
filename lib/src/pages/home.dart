@@ -1,13 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/extentions/button.dart';
 import '../core/extentions/context.dart';
+import 'demo.dart';
 
 class Home extends StatefulWidget {
-  static const String routeName = "/home";
+  static const String routeName = "/";
 
   const Home({super.key});
 
@@ -30,7 +29,7 @@ class _HomeState extends State<Home> {
           children: [
             OutlinedButton(
               onPressed: () {
-                log(GoRouterState.of(context).location);
+                context.push(Demo.routeName);
               },
               style: context.theme.outlinedButtonTheme.outline(),
               child: const Text("Click me"),

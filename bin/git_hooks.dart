@@ -49,12 +49,12 @@ Future<bool> preCommit() async {
     if (showWarning) {
       log(
         "Please check:\n"
-            "1. Unused imports\n"
-            "2. Unused variables\n"
-            "3. Redundant null checks\n"
-            "4. Unused methods\n"
-            "5. Inconsistent return types\n"
-            "6. Missing required parameters",
+        "1. Unused imports\n"
+        "2. Unused variables\n"
+        "3. Redundant null checks\n"
+        "4. Unused methods\n"
+        "5. Inconsistent return types\n"
+        "6. Missing required parameters",
       );
     }
     result =
