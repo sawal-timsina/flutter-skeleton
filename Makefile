@@ -14,7 +14,7 @@ set-env-dev:
 	@cp -r env/dev/$(GOOGLE_SERVICE_JSON) $(GOOGLE_SERVICE_ANDROID)
 	@cp -r env/dev/$(GOOGLE_SERVICE_INFO) $(GOOGLE_SERVICE_IOS)
 
-	@cd android && ./gradlew clean && cd .. && yarn cache clean
+	@flutter clean
 
 	@echo "$(GREEN)Successfully copied project dev environment config$(NC)"
 
@@ -23,7 +23,7 @@ set-env-prod:
 	@cp -r env/prod/$(GOOGLE_SERVICE_JSON) $(GOOGLE_SERVICE_ANDROID)
 	@cp -r env/prod/$(GOOGLE_SERVICE_INFO) $(GOOGLE_SERVICE_IOS)
 
-	@cd android && ./gradlew clean && cd .. && yarn cache clean
+	@flutter clean
 
 	@echo "$(GREEN)Successfully copied project prod environment config$(NC)"
 
