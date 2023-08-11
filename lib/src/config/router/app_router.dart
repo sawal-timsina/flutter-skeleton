@@ -11,8 +11,11 @@ import '../../providers/auth_provider.dart';
 import '../../providers/onboarding_provider.dart';
 
 class AppRouter extends GoRouter {
-  AppRouter({super.refreshListenable})
-      : super(
+  AppRouter({
+    super.refreshListenable,
+    super.observers,
+    super.navigatorKey,
+  }) : super(
           initialLocation: Onboarding.routeName,
           routes: <GoRoute>[
             GoRoute(

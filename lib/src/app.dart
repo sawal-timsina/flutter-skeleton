@@ -20,6 +20,7 @@ import 'package:sizer/sizer.dart' show Sizer;
 import '../config.dart';
 import 'config/router/app_router.dart';
 import 'config/themes/app_theme.dart';
+import 'core/utils/RouteLogger.dart';
 import 'core/utils/constants.dart';
 import 'providers/auth_provider.dart';
 import 'providers/onboarding_provider.dart';
@@ -50,6 +51,7 @@ class App extends StatelessWidget {
               locale: context.locale,
               debugShowCheckedModeBanner: kDebugMode,
               routerConfig: AppRouter(
+                observers: [RouteLogger()],
                 refreshListenable: Listenable.merge([
                   _.read<AuthProvider>(),
                   _.read<OnboardingProvider>(),
