@@ -5,16 +5,16 @@ import 'package:flutter/material.dart'
     show
         BuildContext,
         FocusManager,
+        GlobalKey,
         Key,
         MaterialApp,
+        NavigatorState,
         Overlay,
         OverlayEntry,
-        StatelessWidget,
         Widget;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderLocalizations;
-import 'package:provider/provider.dart'
-    show ChangeNotifierProvider, MultiProvider, ReadContext;
 import 'package:sizer/sizer.dart' show Sizer;
 
 import '../config.dart';
@@ -25,7 +25,9 @@ import 'providers/auth_provider.dart';
 import 'providers/onboarding_provider.dart';
 import 'widgets/organisms/app_settings.dart';
 
-class App extends StatelessWidget {
+final mainNavigator = GlobalKey<NavigatorState>();
+
+class App extends ConsumerWidget {
   static void dismissKeyboard() {
     FocusManager.instance.primaryFocus?.unfocus();
   }
@@ -33,44 +35,32 @@ class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<OnboardingProvider>(
-          create: (_) => OnboardingProvider(),
-        ),
-        ChangeNotifierProvider<AuthProvider>(
-          create: (_) => AuthProvider(),
-        ),
-      ],
-      builder: (context, child) {
-        return Sizer(
-          builder: (_, orientation, deviceType) {
-            return MaterialApp.router(
-              locale: context.locale,
-              debugShowCheckedModeBanner: kDebugMode,
-              routerConfig: AppRouter(
-                refreshListenable: Listenable.merge([
-                  _.read<AuthProvider>(),
-                  _.read<OnboardingProvider>(),
-                ]),
-              ),
-              title: tr("Skeleton"),
-              theme: AppTheme.light,
-              localizationsDelegates: [
-                FormBuilderLocalizations.delegate,
-                ...context.localizationDelegates
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Sizer(
+      builder: (_, orientation, deviceType) {
+        return MaterialApp.router(
+          locale: context.locale,
+          debugShowCheckedModeBanner: kDebugMode,
+          routerConfig: AppRouter(
+            ref: ref,
+            refreshListenable: Listenable.merge(
+              [ref.read(authProvider), ref.read(onBoardingProvider)],
+            ),
+          ),
+          title: tr("Skeleton"),
+          theme: AppTheme.light,
+          localizationsDelegates: [
+            FormBuilderLocalizations.delegate,
+            ...context.localizationDelegates
+          ],
+          supportedLocales: context.supportedLocales,
+          builder: (context, child) {
+            return Overlay(
+              initialEntries: [
+                OverlayEntry(builder: (_) => child!),
+                if (Config.flavour == Flavour.development)
+                  OverlayEntry(builder: (_) => const AppSettings()),
               ],
-              supportedLocales: context.supportedLocales,
-              builder: (context, child) {
-                return Overlay(
-                  initialEntries: [
-                    OverlayEntry(builder: (_) => child!),
-                    if (Config.flavour == Flavour.development)
-                      OverlayEntry(builder: (_) => const AppSettings()),
-                  ],
-                );
-              },
             );
           },
         );
