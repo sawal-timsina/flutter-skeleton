@@ -14,7 +14,7 @@ jobs:
       - checkout
 
       - flutter/install_sdk: # Install Flutter SDK
-          version: 3.7.9
+          version: 3.13.9
 
       - flutter/install_pub:
           cache-version: v1
