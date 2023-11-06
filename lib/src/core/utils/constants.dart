@@ -21,3 +21,5 @@ class AppLocale {
   static const Locale en = Locale("en");
   static const locales = [ja, en];
 }
+
+enum ConnectivityStatus { isConnected, isDisconnected, notDetermined }

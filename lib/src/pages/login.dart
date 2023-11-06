@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../config/themes/colors.dart';
+import '../core/utils/constants.dart';
 import '../providers/auth_provider.dart';
+import '../providers/index.dart';
 import '../widgets/atoms/text_input.dart';
 
 class Login extends ConsumerStatefulWidget {
@@ -49,7 +51,7 @@ class _LoginState extends ConsumerState<Login> {
                       label: tr("Name"),
                       hintText: tr("Enter your name"),
                       validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(errorText: "Required")
+                        FormBuilderValidators.required(errorText: "Required"),
                       ]),
                     ),
                     const SizedBox(height: 8),
@@ -60,9 +62,9 @@ class _LoginState extends ConsumerState<Login> {
                       label: tr("Password"),
                       hintText: tr("Enter your password"),
                       validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(errorText: "Required")
+                        FormBuilderValidators.required(errorText: "Required"),
                       ]),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -84,6 +86,15 @@ class _LoginState extends ConsumerState<Login> {
                       ),
                     ),
                 child: const Text("Login"),
+              ),
+              Consumer(
+                builder: (context, ref, child) {
+                  final networkStatus = ref.watch(connectivityStatusProvider);
+                  final msg = networkStatus == ConnectivityStatus.isConnected
+                      ? 'Is Connected to the Internet'
+                      : 'Is Disconnected from the Internet';
+                  return Text(msg);
+                },
               ),
             ],
           ),
