@@ -5,6 +5,7 @@ import 'package:flutter/material.dart'
         Colors,
         CrossAxisAlignment,
         Flexible,
+        FontWeight,
         Icon,
         IconData,
         MediaQuery,
@@ -50,6 +51,8 @@ extension BuildContextEntension<T> on BuildContext {
 
   TextStyle? get bodyLarge => Theme.of(this).textTheme.bodyLarge;
 
+  TextStyle? get bodySmall => Theme.of(this).textTheme.bodySmall;
+
   TextStyle? get bodyMedium => Theme.of(this).textTheme.bodyMedium;
 
   TextStyle? get titleMedium => Theme.of(this).textTheme.titleMedium;
@@ -75,6 +78,11 @@ extension BuildContextEntension<T> on BuildContext {
   Color get errorColor => Theme.of(this).colorScheme.error;
 
   Color get background => Theme.of(this).colorScheme.background;
+
+/*------------------ custom text style  --------------*/
+  TextStyle? get languageButtonStyle => this
+      .bodySmall
+      ?.copyWith(color: Colors.white, fontWeight: FontWeight.bold);
 
   /*------------------ bottom sheet and snackbar  --------------*/
 

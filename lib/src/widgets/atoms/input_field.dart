@@ -58,7 +58,7 @@ class InputField extends StatelessWidget {
                     ?.copyWith(
                   color: enabled == false ? AppColors.greyDark : requiredColor,
                 ),
-              )
+              ),
           ],
         ),
         if (label != null) const SizedBox(height: 8),

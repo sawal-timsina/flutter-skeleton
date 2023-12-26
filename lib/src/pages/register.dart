@@ -46,7 +46,7 @@ class _RegisterState extends State<Register> {
                       label: tr("Name"),
                       hintText: tr("Enter your name"),
                       validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(errorText: "Required")
+                        FormBuilderValidators.required(errorText: "Required"),
                       ]),
                     ),
                     const SizedBox(height: 8),
@@ -57,7 +57,7 @@ class _RegisterState extends State<Register> {
                       label: tr("Email"),
                       hintText: tr("Enter your email"),
                       validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(errorText: "Required")
+                        FormBuilderValidators.required(errorText: "Required"),
                       ]),
                     ),
                     const SizedBox(height: 8),
@@ -68,9 +68,9 @@ class _RegisterState extends State<Register> {
                       label: tr("Password"),
                       hintText: tr("Enter your password"),
                       validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(errorText: "Required")
+                        FormBuilderValidators.required(errorText: "Required"),
                       ]),
-                    )
+                    ),
                   ],
                 ),
               ),

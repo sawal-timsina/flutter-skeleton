@@ -20,9 +20,9 @@ class PageHeader extends StatelessWidget implements PreferredSizeWidget {
           ),
           const SizedBox(width: 8),
           Text(
-            tr("Skeleton"),
+            tr("Flutter App Skeleton"),
             style: Theme.of(context).textTheme.displayLarge,
-          )
+          ),
         ],
       ),
     );
