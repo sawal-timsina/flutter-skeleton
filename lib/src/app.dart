@@ -1,29 +1,18 @@
 import 'package:easy_localization/easy_localization.dart'
     show BuildContextEasyLocalizationExtension, tr;
 import 'package:flutter/foundation.dart' show Key, Listenable, kDebugMode;
-import 'package:flutter/material.dart'
-    show
-        BuildContext,
-        FocusManager,
-        GlobalKey,
-        Key,
-        MaterialApp,
-        NavigatorState,
-        Overlay,
-        OverlayEntry,
-        Widget;
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'
+    show ConsumerWidget, WidgetRef;
 import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderLocalizations;
 import 'package:sizer/sizer.dart' show Sizer;
 
-import '../config.dart';
 import 'config/router/app_router.dart';
 import 'config/themes/app_theme.dart';
-import 'core/utils/constants.dart';
 import 'providers/auth_provider.dart';
 import 'providers/onboarding_provider.dart';
-import 'widgets/organisms/app_settings.dart';
+import 'widgets/molecules/language_switch.dart';
 
 final mainNavigator = GlobalKey<NavigatorState>();
 
@@ -51,18 +40,10 @@ class App extends ConsumerWidget {
           theme: AppTheme.light,
           localizationsDelegates: [
             FormBuilderLocalizations.delegate,
-            ...context.localizationDelegates
+            ...context.localizationDelegates,
           ],
           supportedLocales: context.supportedLocales,
-          builder: (context, child) {
-            return Overlay(
-              initialEntries: [
-                OverlayEntry(builder: (_) => child!),
-                if (Config.flavour == Flavour.development)
-                  OverlayEntry(builder: (_) => const AppSettings()),
-              ],
-            );
-          },
+          builder: (context, child) => LanguageSwitch(child: child),
         );
       },
     );
