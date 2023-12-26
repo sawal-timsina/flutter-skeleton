@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/extentions/button.dart';
-import '../core/extentions/context.dart';
+import '../core/extensions/button.dart';
+import '../core/extensions/context.dart';
 import 'demo.dart';
 
 class Home extends StatefulWidget {

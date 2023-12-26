@@ -91,8 +91,8 @@ class _LoginState extends ConsumerState<Login> {
                 builder: (context, ref, child) {
                   final networkStatus = ref.watch(connectivityStatusProvider);
                   final msg = networkStatus == ConnectivityStatus.isConnected
-                      ? 'Is Connected to the Internet'
-                      : 'Is Disconnected from the Internet';
+                      ? 'Connected to the Internet'
+                      : 'Disconnected from the Internet';
                   return Text(msg);
                 },
               ),

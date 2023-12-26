@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/extentions/button.dart';
-import '../core/extentions/context.dart';
+import '../core/extensions/button.dart';
+import '../core/extensions/context.dart';
 import '../providers/auth_provider.dart';
 import 'home.dart';
 import 'login.dart';

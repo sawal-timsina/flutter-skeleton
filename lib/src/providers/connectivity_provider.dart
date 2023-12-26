@@ -1,7 +1,8 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:connectivity_plus/connectivity_plus.dart'
+    show Connectivity, ConnectivityResult;
+import 'package:flutter_riverpod/flutter_riverpod.dart' show StateNotifier;
 
-import '../core/utils/constants.dart';
+import '../core/utils/constants.dart' show ConnectivityStatus;
 
 class ConnectivityStatusNotifier extends StateNotifier<ConnectivityStatus> {
   late ConnectivityStatus lastResult;

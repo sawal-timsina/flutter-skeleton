@@ -9,6 +9,7 @@ IOS_DIR=ios
 GOOGLE_SERVICE_INFO=GoogleService-info.plist
 GOOGLE_SERVICE_IOS=$(IOS_DIR)/
 
+
 setup-config:
 	@cp -r lib/config.dart.example lib/config.dart
 
@@ -35,7 +36,8 @@ prod:
 	flutter build apk --release
 
 clean:
-	flutter clean
+	flutter clean && flutter pub get
+	
 
 fix:
 	dart fix --apply
