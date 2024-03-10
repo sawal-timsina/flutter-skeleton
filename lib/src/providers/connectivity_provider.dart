@@ -1,20 +1,18 @@
 import 'package:connectivity_plus/connectivity_plus.dart'
     show Connectivity, ConnectivityResult;
-import 'package:flutter_riverpod/flutter_riverpod.dart' show StateNotifier;
+import 'package:flutter/material.dart';
 
-import '../core/utils/constants.dart' show ConnectivityStatus;
+import '../core/enums/enums.dart';
 
-class ConnectivityStatusNotifier extends StateNotifier<ConnectivityStatus> {
-  late ConnectivityStatus lastResult;
+class ConnectivityStatusNotifier with ChangeNotifier {
+  late ConnectivityStatus _status;
 
-  ConnectivityStatusNotifier() : super(ConnectivityStatus.notDetermined) {
-    lastResult = ConnectivityStatus.notDetermined;
+  ConnectivityStatusNotifier() {
+    _status = ConnectivityStatus.initial;
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      var newState = _mapConnectivityResultToStatus(result);
-      if (newState != lastResult) {
-        state = newState;
-        lastResult = newState;
-      }
+      final newState = _mapConnectivityResultToStatus(result);
+      _status = newState;
+      notifyListeners();
     });
   }
 
@@ -31,4 +29,6 @@ class ConnectivityStatusNotifier extends StateNotifier<ConnectivityStatus> {
         return ConnectivityStatus.isDisconnected;
     }
   }
+
+  ConnectivityStatus get status => _status;
 }
