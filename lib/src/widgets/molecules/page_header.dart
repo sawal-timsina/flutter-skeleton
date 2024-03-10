@@ -1,29 +1,30 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/index.dart';
+
 class PageHeader extends StatelessWidget implements PreferredSizeWidget {
+  final String? title;
+  final bool showLeading;
   const PageHeader({
     Key? key,
+    this.showLeading = true,
+    this.title,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      title: Wrap(
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: <Widget>[
-          Icon(
-            Icons.apps,
-            size: 48,
-            color: Theme.of(context).primaryColor,
-          ),
-          const SizedBox(width: 8),
-          Text(
-            tr("Flutter App Skeleton"),
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
-        ],
+      leading: showLeading
+          ? const Icon(
+              Icons.apps,
+              size: 30,
+            )
+          : null,
+      title: Text(
+        tr(title ?? defaultAppTitle),
+        style: context.appBarStyle,
       ),
     );
   }
