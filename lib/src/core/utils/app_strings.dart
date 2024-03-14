@@ -1,0 +1,16 @@
+const String defaultAppTitle = "Flutter App Skeleton";
+const String darkMode = "Dark Mode";
+const String loginPage = "Login Page";
+const String email = "Email";
+const String enterYourEmail = "Enter your email";
+const String password = "Password";
+const String enterYourPassword = "Enter your password";
+const String fullName = "Email";
+const String enterYourFullName = "Enter your fullname";
+const String login = "Login";
+const String registerPage = "Register Page";
+const String register = "Register";
+const String logout = "Logout";
+const String pageNotFound = "Page Not Found";
+const String noInternetConn = "No Internet Connection";
+const String pleaseCheckInternetConn = "Please check your internet connection";
