@@ -1,23 +1,26 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart' show GoRoute, GoRouter, RoutingConfig;
 
-import '../../pages/demo.dart';
-import '../../pages/home.dart';
-import '../../pages/login.dart';
-import '../../pages/not_found.dart';
-import '../../pages/onboarding.dart';
-import '../../pages/register.dart';
-import '../../providers/auth_provider.dart';
-import '../../providers/onboarding_provider.dart';
+import '../../app.dart';
+import '../../pages/auth/index.dart';
+import '../../pages/auth/login/login.dart';
+import '../../pages/index.dart' show Home, Onboarding, PageNotFound, Register;
+import '../../pages/not_found/internet_not_found.dart';
+import '../../providers/provider_instance.dart';
 import 'app_route_config.dart';
 
 class AppRouter extends GoRouter {
   final WidgetRef ref;
   AppRouter({super.refreshListenable, required this.ref})
       : super.routingConfig(
+          navigatorKey: mainNavigator,
           routingConfig: ConstantRoutingConfig(
             RoutingConfig(
               routes: <GoRoute>[
+                GoRoute(
+                  path: InternetNotFound.routeName,
+                  builder: (context, state) => const InternetNotFound(),
+                ),
                 GoRoute(
                   path: Onboarding.routeName,
                   builder: (context, state) => const Onboarding(),
@@ -25,6 +28,10 @@ class AppRouter extends GoRouter {
                       ref.read(onBoardingProvider).shouldShowOnboardingPage
                           ? Onboarding.routeName
                           : null,
+                ),
+                GoRoute(
+                  path: Auth.routeName,
+                  builder: (context, state) => const Auth(),
                 ),
                 GoRoute(
                   path: Login.routeName,
@@ -37,28 +44,21 @@ class AppRouter extends GoRouter {
                 GoRoute(
                   path: Home.routeName,
                   builder: (context, state) => const Home(),
-                ),
-                GoRoute(
-                  path: Demo.routeName,
-                  builder: (context, state) => const Demo(
-                    title: "Demo",
-                    args: DemoScreenArguments(Home.routeName),
-                  ),
+                  redirect: (context, state) {
+                    final loggedIn = ref.read(authProvider).loggedIn;
+                    if (!loggedIn) return Auth.routeName;
+                    return null;
+                  },
                 ),
               ],
               redirect: (context, state) {
                 final loggedIn = ref.read(authProvider).loggedIn;
-                final loggingIn = state.matchedLocation == Login.routeName;
-
-                if (!loggedIn && !loggingIn) return Login.routeName;
-
-                if (loggedIn && loggingIn) return Home.routeName;
-
+                if (loggedIn) return Home.routeName;
                 return null;
               },
             ),
           ),
-          initialLocation: Onboarding.routeName,
-          errorBuilder: (context, state) => const NotFoundPage(),
+          initialLocation: Auth.routeName,
+          errorBuilder: (context, state) => const PageNotFound(),
         );
 }
