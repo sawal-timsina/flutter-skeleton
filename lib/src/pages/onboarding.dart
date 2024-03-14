@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/onboarding_provider.dart';
+import '../providers/index.dart' show onBoardingProvider;
 
 class Onboarding extends ConsumerStatefulWidget {
   static const String routeName = "/onboarding";

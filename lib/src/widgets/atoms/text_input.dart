@@ -94,7 +94,7 @@ class TextInput extends StatefulWidget {
     this.hintStyle,
     this.prefixIcon,
     this.contentPadding,
-    this.autovalidateMode = AutovalidateMode.disabled,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
   }) : super(key: key);
 
   @override

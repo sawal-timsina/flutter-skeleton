@@ -11,6 +11,7 @@ import 'package:flutter/material.dart'
         MediaQuery,
         Row,
         ScaffoldMessenger,
+        ScaffoldMessengerState,
         SingleChildScrollView,
         Size,
         SizedBox,
@@ -24,7 +25,7 @@ import 'package:flutter/material.dart'
         showModalBottomSheet;
 import 'package:go_router/go_router.dart';
 
-extension BuildContextEntension<T> on BuildContext {
+extension BuildContextExtension<T> on BuildContext {
   /*------------------ go router --------------*/
   GoRouter get router => GoRouter.of(this);
 
@@ -56,6 +57,7 @@ extension BuildContextEntension<T> on BuildContext {
   TextStyle? get bodyMedium => Theme.of(this).textTheme.bodyMedium;
 
   TextStyle? get titleMedium => Theme.of(this).textTheme.titleMedium;
+  TextStyle? get appBarStyle => Theme.of(this).appBarTheme.titleTextStyle;
 
   /*------------------ Theme colors --------------*/
 
@@ -101,7 +103,7 @@ extension BuildContextEntension<T> on BuildContext {
     );
   }
 
-  snackBar({
+  ScaffoldMessengerState snackBar({
     required IconData icon,
     required String message,
     required Color color,

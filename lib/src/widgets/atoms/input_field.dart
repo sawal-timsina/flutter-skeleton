@@ -9,12 +9,12 @@ import 'package:flutter/material.dart'
         StatelessWidget,
         Text,
         TextStyle,
-        Theme,
         Widget,
         Wrap,
         WrapCrossAlignment;
 
 import '../../config/themes/colors.dart';
+import '../../core/extensions/context.dart';
 
 class InputField extends StatelessWidget {
   final Widget child;
@@ -31,7 +31,7 @@ class InputField extends StatelessWidget {
     this.required,
     this.labelStyle,
     this.enabled = true,
-    this.requiredColor = AppColors.primary,
+    this.requiredColor = AppColors.error,
   }) : super(key: key);
 
   @override
@@ -46,16 +46,14 @@ class InputField extends StatelessWidget {
             if (label != null)
               Text(
                 label!,
-                style: (labelStyle ?? Theme.of(context).textTheme.titleMedium)!
-                    .copyWith(
+                style: (labelStyle ?? context.titleMedium)!.copyWith(
                   color: enabled == false ? AppColors.greyDark : null,
                 ),
               ),
             if (required == true)
               Text(
                 "*",
-                style: (labelStyle ?? Theme.of(context).textTheme.titleMedium)
-                    ?.copyWith(
+                style: (labelStyle ?? context.titleMedium)?.copyWith(
                   color: enabled == false ? AppColors.greyDark : requiredColor,
                 ),
               ),

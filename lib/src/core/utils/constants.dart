@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-enum Flavour {
-  development,
-  production;
-}
-
 extension Merge on EdgeInsets {
   EdgeInsets merge(EdgeInsets? other) {
     return copyWith(
@@ -21,5 +16,3 @@ class AppLocale {
   static const Locale en = Locale("en");
   static const locales = [ja, en];
 }
-
-enum ConnectivityStatus { isConnected, isDisconnected, notDetermined }

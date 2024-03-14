@@ -14,7 +14,8 @@ import 'package:flutter/material.dart'
         Widget;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../providers/auth_provider.dart';
+import '../../core/utils/app_strings.dart';
+import '../../providers/index.dart' show authProvider;
 
 class Header extends ConsumerWidget implements PreferredSizeWidget {
   const Header({
@@ -34,7 +35,7 @@ class Header extends ConsumerWidget implements PreferredSizeWidget {
             return TextButton.icon(
               icon: const Icon(Icons.directions_bus, size: 24),
               onPressed: () {},
-              label: Text(tr("Logout")),
+              label: Text(tr(logout)),
             );
           },
         ),
