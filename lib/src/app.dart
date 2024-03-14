@@ -8,10 +8,9 @@ import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderLocalizations;
 import 'package:sizer/sizer.dart' show Sizer;
 
-import 'config/router/app_router.dart';
-import 'config/themes/app_theme.dart';
-import 'providers/auth_provider.dart';
-import 'providers/onboarding_provider.dart';
+import 'config/index.dart' show AppRouter, AppTheme;
+import 'core/utils/app_strings.dart';
+import 'providers/index.dart';
 import 'widgets/molecules/language_switch.dart';
 
 final mainNavigator = GlobalKey<NavigatorState>();
@@ -25,6 +24,7 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDarkMode = ref.watch(darkModeProvider);
     return Sizer(
       builder: (_, orientation, deviceType) {
         return MaterialApp.router(
@@ -33,17 +33,20 @@ class App extends ConsumerWidget {
           routerConfig: AppRouter(
             ref: ref,
             refreshListenable: Listenable.merge(
-              [ref.read(authProvider), ref.read(onBoardingProvider)],
+              [
+                ref.read(authProvider),
+                ref.read(onBoardingProvider),
+              ],
             ),
           ),
-          title: tr("Skeleton"),
-          theme: AppTheme.light,
+          title: tr(defaultAppTitle),
+          theme: isDarkMode ? AppTheme.dark : AppTheme.light,
           localizationsDelegates: [
             FormBuilderLocalizations.delegate,
             ...context.localizationDelegates,
           ],
           supportedLocales: context.supportedLocales,
-          builder: (context, child) => LanguageSwitch(child: child),
+          builder: (context, child) => LanguageSwitch(child: child!),
         );
       },
     );

@@ -1,17 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../../config.dart';
 import '../api/interceptors.dart';
+import 'logger_interceptor.dart';
 
 late final Dio dio;
 
 class InitDio {
-  call() {
+  void call() {
     dio = Dio(
       BaseOptions(
         baseUrl: Config.apiUrl,
+        receiveTimeout: const Duration(seconds: 20),
+        connectTimeout: const Duration(seconds: 20),
+        sendTimeout: const Duration(seconds: 20),
       ),
-    )..interceptors.addAll([DioAuthInterceptors(), PrettyDioLogger()]);
+    )..interceptors.addAll([DioAuthInterceptors(), LoggerInterceptor()]);
   }
 }
