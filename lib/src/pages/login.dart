@@ -32,6 +32,7 @@ class _LoginState extends ConsumerState<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        key: const Key("login_title"),
         title: const Text("Login"),
       ),
       body: SingleChildScrollView(
@@ -70,6 +71,7 @@ class _LoginState extends ConsumerState<Login> {
               ),
               const SizedBox(height: 18),
               OutlinedButton(
+                key: const Key("login_button"),
                 onPressed: () {
                   ref.read(authProvider).setUserLoggedIn(
                         !ref.read(authProvider).loggedIn,
