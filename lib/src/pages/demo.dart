@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../core/extensions/button.dart';
 import '../core/extensions/context.dart';
+import '../features/movies_list/presentation/movie_list.dart';
 import '../providers/auth_provider.dart';
 import 'home.dart';
 import 'login.dart';
@@ -88,6 +89,13 @@ class _DemoState extends ConsumerState<Demo> {
                   context.pushReplacement(Login.routeName);
                 },
                 child: const Text("pushNamed :: ${Login.routeName}"),
+              ),
+              const SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () {
+                  context.push(MoviesListView.routeName);
+                },
+                child: const Text("push :: ${MoviesListView.routeName}"),
               ),
               const SizedBox(height: 15),
             ],
