@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart' show GoRoute, GoRouter, RoutingConfig;
 
+import '../../features/movies_list/presentation/movie_list.dart';
 import '../../pages/demo.dart';
 import '../../pages/home.dart';
 import '../../pages/login.dart';
@@ -37,6 +38,10 @@ class AppRouter extends GoRouter {
                 GoRoute(
                   path: Home.routeName,
                   builder: (context, state) => const Home(),
+                ),
+                GoRoute(
+                  path: MoviesListView.routeName,
+                  builder: (context, state) => const MoviesListView(),
                 ),
                 GoRoute(
                   path: Demo.routeName,
