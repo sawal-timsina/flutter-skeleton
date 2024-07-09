@@ -10,8 +10,8 @@ import 'package:sizer/sizer.dart' show Sizer;
 
 import 'config/router/app_router.dart';
 import 'config/themes/app_theme.dart';
-import 'providers/auth_provider.dart';
-import 'providers/onboarding_provider.dart';
+import 'features/authentication/data/http_auth_repository.dart';
+import 'features/onboarding/presentation/onboarding_provider.dart';
 import 'widgets/molecules/language_switch.dart';
 
 final mainNavigator = GlobalKey<NavigatorState>();
@@ -33,7 +33,12 @@ class App extends ConsumerWidget {
           routerConfig: AppRouter(
             ref: ref,
             refreshListenable: Listenable.merge(
-              [ref.read(authProvider), ref.read(onBoardingProvider)],
+              [
+                ref.read(
+                  onBoardingProvider,
+                ),
+                ref.read(authRepositoryProvider).authStateChanges(),
+              ],
             ),
           ),
           title: tr("Skeleton"),
