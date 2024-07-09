@@ -1,21 +1,23 @@
 import 'package:connectivity_plus/connectivity_plus.dart'
     show Connectivity, ConnectivityResult;
-import 'package:flutter_riverpod/flutter_riverpod.dart' show StateNotifier;
-
+import 'package:flutter_riverpod/flutter_riverpod.dart'
+    show Notifier, NotifierProvider;
 import '../core/utils/constants.dart' show ConnectivityStatus;
 
-class ConnectivityStatusNotifier extends StateNotifier<ConnectivityStatus> {
-  late ConnectivityStatus lastResult;
+//globally accessible
+final connectivityStatusProvider =
+    NotifierProvider<ConnectivityStatusNotifier, ConnectivityStatus>(
+  ConnectivityStatusNotifier.new,
+);
 
-  ConnectivityStatusNotifier() : super(ConnectivityStatus.notDetermined) {
-    lastResult = ConnectivityStatus.notDetermined;
+class ConnectivityStatusNotifier extends Notifier<ConnectivityStatus> {
+  @override
+  ConnectivityStatus build() {
+    state = ConnectivityStatus.notDetermined;
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      var newState = _mapConnectivityResultToStatus(result);
-      if (newState != lastResult) {
-        state = newState;
-        lastResult = newState;
-      }
+      state = _mapConnectivityResultToStatus(result);
     });
+    return state;
   }
 
   ConnectivityStatus _mapConnectivityResultToStatus(ConnectivityResult result) {
