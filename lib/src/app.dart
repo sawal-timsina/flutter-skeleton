@@ -10,6 +10,7 @@ import 'package:sizer/sizer.dart' show Sizer;
 
 import 'config/router/app_router.dart';
 import 'config/themes/app_theme.dart';
+import 'core/utils/analytic_nativgator_observer.dart';
 import 'providers/auth_provider.dart';
 import 'providers/onboarding_provider.dart';
 import 'widgets/molecules/language_switch.dart';
@@ -25,6 +26,7 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final navigatorObserver = AnalyticsNavigatorObserver();
     return Sizer(
       builder: (_, orientation, deviceType) {
         return MaterialApp.router(
@@ -35,6 +37,7 @@ class App extends ConsumerWidget {
             refreshListenable: Listenable.merge(
               [ref.read(authProvider), ref.read(onBoardingProvider)],
             ),
+            navigatorObserver: [navigatorObserver],
           ),
           title: tr("Skeleton"),
           theme: AppTheme.light,
