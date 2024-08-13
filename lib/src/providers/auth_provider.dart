@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../injector.dart';
 import '../models/user/user.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -23,6 +24,8 @@ class AuthProvider with ChangeNotifier {
 
   void setUserLoggedIn(bool loggedIn) {
     _loggedIn = loggedIn;
+    // track logged event
+    firebaseAnalytics.logEvent(name: "logged_event");
     notifyListeners();
   }
 }
