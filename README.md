@@ -212,3 +212,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 - This project was inspired by the need for a starter template for Flutter projects.
 - Special thanks to the Flutter community for their valuable contributions and support.
+
+
+## firebase analytics integration guide
+-  https://readytowork.atlassian.net/l/cp/E6ma73ba
