@@ -24,6 +24,7 @@ class SignInState extends ConsumerState<SignIn> {
 
     return Scaffold(
       appBar: AppBar(
+        key: const Key("login_title"),
         title: const Text("SignIn"),
       ),
       body: SingleChildScrollView(
@@ -62,6 +63,7 @@ class SignInState extends ConsumerState<SignIn> {
               ),
               const SizedBox(height: 18),
               OutlinedButton(
+                key: const Key("login_button"),
                 onPressed: () {
                   ref.read(signInControllerProvider.notifier).signIn();
                 },

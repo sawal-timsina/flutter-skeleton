@@ -25,6 +25,8 @@ dependencies:
   connectivity_plus: ^5.0.2
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 
