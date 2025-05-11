@@ -14,7 +14,7 @@ import 'package:flutter/material.dart'
         Widget;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../providers/auth_provider.dart';
+import '../../features/authentication/data/http_auth_repository.dart';
 
 class Header extends ConsumerWidget implements PreferredSizeWidget {
   const Header({
@@ -27,8 +27,9 @@ class Header extends ConsumerWidget implements PreferredSizeWidget {
       actions: <Widget>[
         Consumer(
           builder: (_, ref, __) {
-            final authState = ref.watch(authProvider);
-            if (!authState.loggedIn) {
+            final authState =
+                ref.watch(authRepositoryProvider).authStateChanges().value;
+            if (authState != null) {
               return const SizedBox.shrink();
             }
             return TextButton.icon(

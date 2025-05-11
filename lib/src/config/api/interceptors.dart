@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+
+import '../../../config.dart';
 
 class DioAuthInterceptors extends Interceptor {
   @override
@@ -6,6 +10,11 @@ class DioAuthInterceptors extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    handler.next(options);
+    try {
+      options.headers.addAll(
+        {HttpHeaders.authorizationHeader: "Bearer ${Config.authToken}"},
+      );
+      handler.next(options);
+    } catch (_) {}
   }
 }

@@ -212,3 +212,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 - This project was inspired by the need for a starter template for Flutter projects.
 - Special thanks to the Flutter community for their valuable contributions and support.
+
+## Command to execute test  
+flutter drive --driver=test_driver/integration_test_driver.dart --target=integration_test/app_test.dart 
