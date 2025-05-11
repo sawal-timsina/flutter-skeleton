@@ -9,26 +9,26 @@ import 'package:flutter/material.dart'
         PreferredSizeWidget,
         Size,
         SizedBox,
-        StatelessWidget,
         Text,
         TextButton,
         Widget;
-import 'package:provider/provider.dart' show Consumer;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../providers/auth_provider.dart';
 
-class Header extends StatelessWidget implements PreferredSizeWidget {
+class Header extends ConsumerWidget implements PreferredSizeWidget {
   const Header({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AppBar(
       actions: <Widget>[
-        Consumer<AuthProvider>(
-          builder: (_, value, __) {
-            if (!value.loggedIn) {
+        Consumer(
+          builder: (_, ref, __) {
+            final authState = ref.watch(authProvider);
+            if (!authState.loggedIn) {
               return const SizedBox.shrink();
             }
             return TextButton.icon(

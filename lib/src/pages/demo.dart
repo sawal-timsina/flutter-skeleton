@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
-import '../core/extentions/button.dart';
-import '../core/extentions/context.dart';
+import '../core/extensions/button.dart';
+import '../core/extensions/context.dart';
 import '../providers/auth_provider.dart';
 import 'home.dart';
 import 'login.dart';
@@ -15,7 +15,7 @@ class DemoScreenArguments {
   const DemoScreenArguments(this.path);
 }
 
-class Demo extends StatefulWidget {
+class Demo extends ConsumerStatefulWidget {
   static const String routeName = "/demo";
   final String title;
   final DemoScreenArguments args;
@@ -27,12 +27,16 @@ class Demo extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<Demo> createState() => _DemoState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _DemoState();
 }
 
-class _DemoState extends State<Demo> {
+class _DemoState extends ConsumerState<Demo> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
+    final authState = ref.read(authProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -45,7 +49,7 @@ class _DemoState extends State<Demo> {
             children: [
               OutlinedButton(
                 onPressed: () {
-                  context.read<AuthProvider>().setUserLoggedIn(false);
+                  authState.setUserLoggedIn(false);
                 },
                 style: context.theme.outlinedButtonTheme.outline(),
                 child: const Text("Logout"),

@@ -1,11 +1,25 @@
-import 'dart:developer';
-import 'dart:io';
+import 'dart:developer' show log;
+import 'dart:io' show Process, ProcessResult;
 
-import 'package:git_hooks/git_hooks.dart';
+import 'package:git_hooks/git_hooks.dart'
+    show Git, GitHooks, UserBackFun, Utils;
 
 void main(List arguments) {
-  Map<Git, UserBackFun> params = {Git.preCommit: preCommit};
+  Map<Git, UserBackFun> params = {
+    Git.commitMsg: commitMsg,
+    Git.preCommit: preCommit,
+  };
   GitHooks.call(arguments as List<String>, params);
+}
+
+Future<bool> commitMsg() async {
+  // String rootDir = Directory.current.path;
+  String commitMsg = Utils.getCommitEditMsg();
+  if (isAllowedCommitType(commitMsg)) {
+    return true; // you can return true let commit go
+  } else {
+    return false;
+  }
 }
 
 Future<bool> preCommit() async {
@@ -72,4 +86,22 @@ Future<bool> preCommit() async {
   } catch (e) {
     return false;
   }
+}
+
+bool isAllowedCommitType(String commitMsgType) {
+  List<String> allowedCommitTypes = [
+    "feat", // A new feature is introduced with the changes
+    "fix", // A bug fix or correction is made
+    "chore", // Routine tasks, maintenance, or chores
+    "refactor", // Code refactoring without changing its external behavior
+    "docs", // Documentation-related changes
+    "style", // Code style changes (formatting, indentation, etc.)
+    "test", // Adding or modifying tests
+    "pref", // Performance-related changes
+    "ci", // Changes to the continuous integration configuration
+    "build", // Changes that affect the build system or external dependencies
+    "revert", // Reverting a previous commit
+  ];
+
+  return allowedCommitTypes.any((prefix) => commitMsgType.startsWith(prefix));
 }

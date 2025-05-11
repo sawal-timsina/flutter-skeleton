@@ -6,7 +6,6 @@ abstract class Indexable {
   operator [](index) => toJson()[index];
 
   Map<String, dynamic> toJson();
-
   @override
   bool operator ==(Object other) {
     return other is Indexable && other.key == key;
