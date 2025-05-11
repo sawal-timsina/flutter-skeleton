@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart' show GoRoute, GoRouter, RoutingConfig;
 
@@ -14,8 +15,13 @@ import 'app_route_config.dart';
 
 class AppRouter extends GoRouter {
   final WidgetRef ref;
-  AppRouter({super.refreshListenable, required this.ref})
-      : super.routingConfig(
+  final List<NavigatorObserver> navigatorObserver;
+
+  AppRouter({
+    super.refreshListenable,
+    required this.ref,
+    required this.navigatorObserver,
+  }) : super.routingConfig(
           routingConfig: ConstantRoutingConfig(
             RoutingConfig(
               routes: <GoRoute>[
@@ -65,5 +71,6 @@ class AppRouter extends GoRouter {
           ),
           initialLocation: Onboarding.routeName,
           errorBuilder: (context, state) => const NotFoundPage(),
+          observers: navigatorObserver,
         );
 }

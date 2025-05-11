@@ -215,3 +215,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Command to execute test  
 flutter drive --driver=test_driver/integration_test_driver.dart --target=integration_test/app_test.dart 
+
+
+## firebase analytics integration guide
+-  https://readytowork.atlassian.net/l/cp/E6ma73ba

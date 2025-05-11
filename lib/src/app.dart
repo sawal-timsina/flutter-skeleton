@@ -10,6 +10,7 @@ import 'package:sizer/sizer.dart' show Sizer;
 
 import 'config/router/app_router.dart';
 import 'config/themes/app_theme.dart';
+import 'core/utils/analytic_nativgator_observer.dart';
 import 'core/version_updator.dart';
 import 'core/utils/RouteLogger.dart';
 import 'core/utils/constants.dart';
@@ -48,6 +49,7 @@ class _AppState extends ConsumerState<App> with WidgetsBindingObserver {
   Widget build(
     BuildContext context,
   ) {
+    final navigatorObserver = AnalyticsNavigatorObserver();
     return Sizer(
       builder: (_, orientation, deviceType) {
         return MaterialApp.router(
@@ -64,6 +66,7 @@ class _AppState extends ConsumerState<App> with WidgetsBindingObserver {
                 ref.read(authRepositoryProvider).authStateChanges(),
               ],
             ),
+            navigatorObserver: [navigatorObserver],
           ),
           title: tr("Skeleton"),
           theme: AppTheme.light,
