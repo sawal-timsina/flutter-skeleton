@@ -4,10 +4,11 @@ import 'package:go_router/go_router.dart';
 
 import '../core/extensions/button.dart';
 import '../core/extensions/context.dart';
-import '../providers/auth_provider.dart';
+import 'authentication/data/http_auth_repository.dart';
+import 'authentication/presentation/signin/signin_view.dart';
 import 'home.dart';
-import 'login.dart';
-import 'onboarding.dart';
+
+import 'onboarding/presentation/onboarding.dart';
 
 class DemoScreenArguments {
   final String path;
@@ -35,7 +36,7 @@ class _DemoState extends ConsumerState<Demo> {
   Widget build(
     BuildContext context,
   ) {
-    final authState = ref.read(authProvider);
+    final authState = ref.read(authRepositoryProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +50,7 @@ class _DemoState extends ConsumerState<Demo> {
             children: [
               OutlinedButton(
                 onPressed: () {
-                  authState.setUserLoggedIn(false);
+                  authState.signOut();
                 },
                 style: context.theme.outlinedButtonTheme.outline(),
                 child: const Text("Logout"),
@@ -57,16 +58,16 @@ class _DemoState extends ConsumerState<Demo> {
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  context.go(Login.routeName);
+                  context.go(SignIn.routeName);
                 },
-                child: const Text("go :: ${Login.routeName}"),
+                child: const Text("go :: ${SignIn.routeName}"),
               ),
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  context.push(Login.routeName);
+                  context.push(SignIn.routeName);
                 },
-                child: const Text("push :: ${Login.routeName}"),
+                child: const Text("push :: ${SignIn.routeName}"),
               ),
               const SizedBox(height: 15),
               ElevatedButton(
@@ -85,9 +86,9 @@ class _DemoState extends ConsumerState<Demo> {
               const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  context.pushReplacement(Login.routeName);
+                  context.pushReplacement(SignIn.routeName);
                 },
-                child: const Text("pushNamed :: ${Login.routeName}"),
+                child: const Text("pushNamed :: ${SignIn.routeName}"),
               ),
               const SizedBox(height: 15),
             ],

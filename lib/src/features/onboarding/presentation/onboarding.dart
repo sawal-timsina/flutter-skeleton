@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/onboarding_provider.dart';
+import 'onboarding_provider.dart';
 
 class Onboarding extends ConsumerStatefulWidget {
   static const String routeName = "/onboarding";
@@ -22,7 +22,7 @@ class _OnboardingState extends ConsumerState<Onboarding> {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            ref.read(onBoardingProvider).onboardingFinish();
+            ref.read(onBoardingProvider.notifier).onboardingFinish();
           },
           child: const Text("Finish Onboarding"),
         ),

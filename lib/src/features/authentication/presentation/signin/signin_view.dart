@@ -3,37 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../config/themes/colors.dart';
+import '../../../../widgets/atoms/text_input.dart';
+import '../signup/signup_view.dart';
+import 'signin_controller.dart';
 
-import '../config/themes/colors.dart';
-import '../core/utils/constants.dart';
-import '../providers/auth_provider.dart';
-import '../providers/index.dart';
-import '../widgets/atoms/text_input.dart';
-
-class Login extends ConsumerStatefulWidget {
-  static const String routeName = "/login";
-
-  const Login({super.key});
+class SignIn extends ConsumerStatefulWidget {
+  static const String routeName = "/SignIn";
+  const SignIn({super.key});
 
   @override
-  ConsumerState<Login> createState() => _LoginState();
+  SignInState createState() => SignInState();
 }
 
-class _LoginState extends ConsumerState<Login> {
-  final formKey = GlobalKey<FormBuilderState>();
-
-  onPressed() {
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
-    }
-  }
-
+class SignInState extends ConsumerState<SignIn> {
   @override
   Widget build(BuildContext context) {
+    final signInWatch = ref.watch(signInControllerProvider);
+
     return Scaffold(
       appBar: AppBar(
         key: const Key("login_title"),
-        title: const Text("Login"),
+        title: const Text("SignIn"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -42,7 +34,7 @@ class _LoginState extends ConsumerState<Login> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               FormBuilder(
-                key: formKey,
+                key: ref.read(signInControllerProvider.notifier).formKey,
                 child: Column(
                   children: [
                     TextInput(
@@ -73,10 +65,7 @@ class _LoginState extends ConsumerState<Login> {
               OutlinedButton(
                 key: const Key("login_button"),
                 onPressed: () {
-                  ref.read(authProvider).setUserLoggedIn(
-                        !ref.read(authProvider).loggedIn,
-                      );
-                  return;
+                  ref.read(signInControllerProvider.notifier).signIn();
                 },
                 style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
                       side: const MaterialStatePropertyAll(
@@ -87,16 +76,27 @@ class _LoginState extends ConsumerState<Login> {
                         ),
                       ),
                     ),
-                child: const Text("Login"),
+                child: signInWatch.isLoading
+                    ? const Text("Loading")
+                    : const Text("SignIn"),
               ),
-              Consumer(
-                builder: (context, ref, child) {
-                  final networkStatus = ref.watch(connectivityStatusProvider);
-                  final msg = networkStatus == ConnectivityStatus.isConnected
-                      ? 'Connected to the Internet'
-                      : 'Disconnected from the Internet';
-                  return Text(msg);
+              const SizedBox(height: 18),
+              OutlinedButton(
+                onPressed: () {
+                  context.push(SignUp.routeName);
                 },
+                style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
+                      side: const MaterialStatePropertyAll(
+                        BorderSide(
+                          width: 1.0,
+                          style: BorderStyle.solid,
+                          color: AppColors.secondary,
+                        ),
+                      ),
+                    ),
+                child: const Text(
+                  "push :: ${SignUp.routeName}",
+                ),
               ),
             ],
           ),
